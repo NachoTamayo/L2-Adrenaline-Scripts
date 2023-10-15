@@ -1,0 +1,151 @@
+                                uses
+  Classes, SysUtils;
+
+const
+Raids : array of integer = [21489, 31541, 25423, 31542, 25226, 25467, 25444, 25125, 25255, 25140, 25051, 25478, 25322, 25470, 25263, 25073, 25233, 25281, 25269, 25198, 25325, 25092, 25453, 25252, 25163, 25035, 25447, 25248, 25235, 25199, 25220, 25109, 25202, 25266, 25276, 25282, 25054, 25244, 25249, 25229, 25524, 25205, 25143, 25293, 25245, 29019, 25450, 25126, 25286, 25299, 25283, 25514, 25309, 25302, 25312, 25319, 25527, 25305, 22215, 22216, 22217, 25315, 31558, 31560];
+Mobs : array of integer = [ 25423, 25226, 25467, 25444, 25125, 25255, 25140, 25051, 25478, 25322, 25470, 25263, 25073, 25233, 25281, 25269, 25198, 25325, 25092, 25453, 25252, 25163, 25035, 25447, 25248, 25235, 25199, 25220, 25109, 25202, 25266, 25276, 25282, 25054, 25244, 25249, 25229, 25524, 25205, 25143, 25293, 25245, 29019, 25450, 25126, 25286, 25299, 25283, 25514, 25309, 25302, 25312, 25319, 25527, 25305, 22215, 22216, 22217, 25315];
+
+var a : Integer;
+
+function checkRaid() : Boolean;
+
+
+var
+i: integer;
+point: TXYZ;
+npc: TL2Live;
+
+begin
+
+  for i := 0 to 58 do begin
+    NpcList.ByID(Raids[i], npc);
+     if (Assigned(npc)) then
+     begin
+      
+      Print(npc.Name + ' ON');
+      SendToDiscord('840c1e8ba8eb4da90617f8600b409607', npc.Name + ' ON');
+    break;
+     
+  end;
+end;    
+end;
+
+function Relog(CharIndex: integer = -1): boolean;   // relog to the character with the specified number
+var i: integer;                                     // (by default it comes on the same as it was)
+begin
+  result:= false; 
+  if (CharIndex > 6) then exit;                               // quit if character index is incorrect
+  while (User.InCombat) do delay(99);                         // wait until we quit the combat
+
+  // if we have a thread to disconnect, then we change the global variable,
+  // so that it stops working for the time of relog
+  // gBlockDisconnectThread:= true;                           
+  if Engine.Restart then                                      // if you managed to restart, then
+    while (Engine.Status = lsOnline) do delay(399);           // wait until we get to the character selection panel
+  Delay(1000);
+                                               // wait an additional 5 seconds for loading
+  if (CharIndex = -1) then begin                              // if character index was not specified, then
+    if Engine.GameStart() then                                // go to the same character as was
+      while (Engine.Status <> lsOnline) do delay(999);        // and look forward to entering the game
+  end else begin                                              // if the character index was specified, then
+    if Engine.GameStart(CharIndex) then                       // go to the character with the specified number
+      while (Engine.Status <> lsOnline) do delay(999);        // and similarly waiting for the entrance to the game
+  end;
+  checkRaid();
+  Delay(2000);                                                // waiting for extra time for loading
+  // gBlockDisconnectThread:= false;                          // turn on disconnect check thread back if there is one
+  result:= true;
+end;
+ 
+begin
+
+//15
+  Engine.AuthLogin('rbcamaras15', 'rbcamaras');
+  delay(1000);
+  engine.usekey(13);
+  delay(1000);
+  engine.usekey(13);
+  delay(1000);
+  for a := 0 to 4  do begin
+         Relog(a);
+  end;
+
+  Engine.SendToClient('26');
+  delay(250);
+  Engine.UseKey('Enter');
+
+  delay(3000);
+  
+//14
+  Engine.AuthLogin('rbcamaras14', 'rbcamaras');
+  delay(1000);
+  engine.usekey(13);
+  delay(1000);
+  engine.usekey(13);
+  delay(1000);
+  for a := 0 to 6  do begin
+         Relog(a);
+  end;
+
+  Engine.SendToClient('26');
+  delay(250);
+  Engine.UseKey('Enter');
+
+  delay(3000);
+
+//13
+  Engine.AuthLogin('rbcamaras13', 'rbcamaras');
+  delay(1000);
+  engine.usekey(13);
+  delay(1000);
+  engine.usekey(13);
+  delay(1000);
+  for a := 0 to 6  do begin
+         Relog(a);
+  end;
+
+  Engine.SendToClient('26');
+  delay(250);
+  Engine.UseKey('Enter');
+
+  delay(3000);
+
+//12
+  Engine.AuthLogin('rbcamaras12', 'rbcamaras');
+  delay(1000);
+  engine.usekey(13);
+  delay(1000);
+  engine.usekey(13);
+  delay(1000);
+  for a := 0 to 6  do begin
+         Relog(a);
+  end;
+
+  Engine.SendToClient('26');
+  delay(250);
+  Engine.UseKey('Enter');
+
+  delay(3000);
+
+//11
+  Engine.AuthLogin('rbcamaras11', 'rbcamaras');
+  delay(1000);
+  engine.usekey(13);
+  delay(1000);
+  engine.usekey(13);
+  delay(1000);
+  for a := 1 to 6  do begin
+         Relog(a);
+  end;
+
+  Engine.SendToClient('26');
+  delay(250);
+  Engine.UseKey('Enter');
+
+  delay(3000);
+
+
+  
+  
+end.
+

@@ -1,0 +1,1346 @@
+uses SysUtils,Teleport;
+
+procedure AttackDefense;
+var
+uX,uY,uZ: integer;
+begin
+ engine.Facecontrol(0, false);
+ engine.moveto(user.x,user.y,user.z);
+ uX:=user.x;
+ uY:=user.y;
+ uZ:=user.Z;
+ while user.inrange(uX,uY,uZ,500) do begin
+     engine.useitem(736);//soe
+     delay(20000);
+ end;
+ while user.incombat do delay(500);
+end;
+procedure Target(id: integer);
+var
+i:integer;
+begin
+for i:=0 to npclist.count-1 do begin
+ if npclist.items(i).id = id then begin
+  if not npclist.items(i).dead then begin
+   engine.settarget(npclist.items(i));
+   break();
+  end;
+ end; 
+end;
+end;
+function ValidNPC: boolean;
+var
+i,n:integer;
+npc: TL2Live;
+begin
+result:=false;
+n:=0;
+for i:=0 to npclist.count-1 do begin
+ if npclist.items(i).id = 31748 then begin
+  if not npclist.items(i).dead then inc(n);
+ end; 
+end;
+if n = 4 then result:=true;
+end;
+
+
+procedure chapter1;  // Precious Soul 1
+var
+item: TL2item;
+begin
+if engine.queststatus(241,1) and not engine.queststatus(241,2) then begin //st1
+ while not user.inrange(83467, 148626, -3392,300) do begin // “п в гиран
+   Teleport.TpGiran;
+ end;
+ print ('uno');
+ Engine.MoveTo(83800, 147672, -3392);
+ Engine.MoveTo(83672, 147880, -3384);
+ Engine.MoveTo(83608, 148440, -3384);
+ Engine.MoveTo(83496, 148840, -3392);
+ Engine.MoveTo(83304, 149144, -3392);
+ Engine.MoveTo(82984, 149224, -3456);
+ Engine.MoveTo(82632, 149432, -3456);
+ Engine.MoveTo(82136, 149496, -3456);
+ Engine.MoveTo(81656, 149544, -3456);
+ Engine.MoveTo(81304, 149672, -3448);
+ while not engine.queststatus(241,2) do begin
+  engine.settarget(30753);
+  delay(500);
+  engine.dlgOpen;
+  delay(500);
+  engine.DlgSel('Quest');
+  delay(500);
+  engine.DlgSel(1);
+  delay(500);
+  engine.DlgSel(1);
+  delay(500);
+ end;
+end;
+if engine.queststatus(241,2) and not engine.queststatus(241,3) then begin //st2
+ while not user.inrange(73048, 118300, -3688,300) do begin
+  Teleport.TpDeathPass;
+ end; 
+ while not engine.queststatus(241,3) do begin
+  engine.settarget(30754);
+  engine.movetotarget(-100);
+  delay(500);
+  engine.dlgOpen;
+  delay(500);
+  engine.DlgSel('Quest');
+  delay(500);
+  engine.DlgSel(1);
+  delay(500);
+  engine.DlgSel(1);
+  delay(500);
+ end;
+end; 
+if engine.queststatus(241,3) and not engine.queststatus(241,4) then begin //st3
+ while not user.inrange(34208, 187379, -3088,300) do begin
+  Teleport.TpBeeHive;
+ end;
+ Engine.MoveTo(33768, 187288, -3248);
+ Engine.MoveTo(33016, 187144, -3200);
+ Engine.MoveTo(32040, 186760, -3232);
+ Engine.MoveTo(30984, 186408, -3400);
+ Engine.MoveTo(30184, 186200, -3632);
+ Engine.MoveTo(28632, 186312, -3664);
+ Engine.MoveTo(26488, 186696, -3536);
+ Engine.MoveTo(25400, 186504, -3360);
+ Engine.MoveTo(23176, 186440, -3456);
+ Engine.MoveTo(21944, 186280, -3336);
+ Engine.MoveTo(21288, 186408, -3248);
+ Engine.MoveTo(20936, 186472, -3240);
+ Engine.MoveTo(20424, 186296, -3344);
+ Engine.MoveTo(19944, 186040, -3344);
+ Engine.MoveTo(19688, 185608, -3344);
+ Engine.MoveTo(19816, 185416, -3336);
+ Engine.MoveTo(20200, 185176, -3336);
+ Engine.MoveTo(20584, 184904, -3336);
+ Engine.MoveTo(20904, 184696, -3336);
+ Engine.LoadZone(script.path+'BarahamNoblesse.zmap');
+ engine.facecontrol(0, true);
+ while not engine.queststatus(241,4) do delay(500);
+ while user.incombat do delay(500);
+ engine.facecontrol(0, false);
+end;
+if engine.queststatus(241,4) and not engine.queststatus(241,5) then begin //st4 
+ while not user.inrange(147452, 27127, -2192,300) do begin
+  Teleport.TpAden;
+ end;
+ Engine.MoveTo(147624, 26904, -2192);
+ Engine.MoveTo(147624, 26504, -2176);
+ Engine.MoveTo(147688, 26360, -2120);
+  while not engine.queststatus(241,5) do begin
+   engine.settarget(31739);
+   engine.dlgOpen;
+   delay(500);
+   engine.DlgSel('Quest');
+   delay(500);
+   engine.DlgSel(1);
+   delay(500);
+  end;     
+end;
+if engine.queststatus(241,5) and not engine.queststatus(241,6) then begin //st5
+ while not user.inrange(111078, 218929, -3520,300) do begin
+  Teleport.TpHeine;
+ end;
+ Engine.MoveTo(110680, 219096, -3520);
+ Engine.MoveTo(110040, 219096, -3456);
+ Engine.MoveTo(110056, 218536, -3528);
+ Engine.MoveTo(110056, 218104, -3528);
+ Engine.MoveTo(110072, 217720, -3592);
+ Engine.MoveTo(110040, 217288, -3728);
+ Engine.MoveTo(109672, 217336, -3728);
+ Engine.MoveTo(109336, 217496, -3728);
+ Engine.MoveTo(108744, 217512, -3688);
+ Engine.MoveTo(108248, 217528, -3672);
+ Engine.MoveTo(107832, 217560, -3656);
+ Engine.MoveTo(107624, 217848, -3656);
+ Engine.MoveTo(107304, 218056, -3656);
+ Engine.MoveTo(107144, 218072, -3656);
+ Engine.MoveTo(107112, 217736, -3576);
+ Engine.MoveTo(107096, 217192, -3576);
+ Engine.MoveTo(107000, 217000, -3576);
+ while not engine.queststatus(241,6) do begin
+   engine.settarget(31042);
+   engine.dlgOpen;
+   delay(500);
+   engine.DlgSel('Quest');
+   delay(500);
+   engine.DlgSel(1);
+   delay(500);
+   engine.DlgSel(1);
+   delay(500);
+  end; 
+end;
+if engine.queststatus(241,6) and not engine.queststatus(241,7) then begin //st6
+ while not user.inrange(73048, 118300, -3688,300) do begin
+  Teleport.TpDeathPass;
+ end; 
+ Engine.MoveTo(72856, 117736, -3664);
+ Engine.MoveTo(72424, 117000, -3664);
+ Engine.MoveTo(71928, 115608, -3680);
+ Engine.MoveTo(71592, 114440, -3712);
+ Engine.MoveTo(71400, 113448, -3696);
+ Engine.MoveTo(71336, 112472, -3680);
+ Engine.MoveTo(71288, 111176, -3712);
+ Engine.MoveTo(71016, 110168, -3712);
+ Engine.MoveTo(70904, 108312, -3712);
+ Engine.MoveTo(70952, 106984, -3712);
+ Engine.MoveTo(71080, 105384, -3680);
+ Engine.MoveTo(71240, 104376, -3664);
+ Engine.MoveTo(71464, 102968, -3696);
+ Engine.MoveTo(71608, 102120, -3712);
+ Engine.MoveTo(71768, 101240, -3696);
+ Engine.MoveTo(72104, 100888, -3680);
+ Engine.MoveTo(72392, 100232, -3616);
+ Engine.MoveTo(73176, 99992, -3392);
+ Engine.MoveTo(73592, 99848, -3288);
+ Engine.MoveTo(74200, 99576, -3264);
+ Engine.MoveTo(74920, 99640, -3264);
+ Engine.MoveTo(75640, 99800, -3296);
+ Engine.MoveTo(76744, 100024, -3376);
+ Engine.MoveTo(76648, 101304, -3296);
+ Engine.MoveTo(76504, 102552, -3176);
+ Engine.MoveTo(76328, 103432, -3056);
+ Engine.MoveTo(76088, 104456, -2960);
+ Engine.MoveTo(75992, 105016, -2880);
+ Engine.MoveTo(76232, 105592, -2912);
+ Engine.MoveTo(76920, 106568, -2944);
+ Engine.MoveTo(76712, 107000, -2880);
+ Engine.LoadZone(script.path+'SuccubusNoblesse.zmap');
+ engine.facecontrol(0, true);
+ while not engine.queststatus(241,7) do delay(500);
+ AttackDefense;
+end;
+if engine.queststatus(241,7) and not engine.queststatus(241,8) then begin //st7
+ while not user.inrange(111078, 218929, -3520,300) do begin
+  Teleport.TpHeine;
+ end;
+ Engine.MoveTo(110680, 219096, -3520);
+ Engine.MoveTo(110040, 219096, -3456);
+ Engine.MoveTo(110056, 218536, -3528);
+ Engine.MoveTo(110056, 218104, -3528);
+ Engine.MoveTo(110072, 217720, -3592);
+ Engine.MoveTo(110040, 217288, -3728);
+ Engine.MoveTo(109672, 217336, -3728);
+ Engine.MoveTo(109336, 217496, -3728);
+ Engine.MoveTo(108744, 217512, -3688);
+ Engine.MoveTo(108248, 217528, -3672);
+ Engine.MoveTo(107832, 217560, -3656);
+ Engine.MoveTo(107624, 217848, -3656);
+ Engine.MoveTo(107304, 218056, -3656);
+ Engine.MoveTo(107144, 218072, -3656);
+ Engine.MoveTo(107112, 217736, -3576);
+ Engine.MoveTo(107096, 217192, -3576);
+ Engine.MoveTo(107000, 217000, -3576);
+ while not engine.queststatus(241,8) do begin
+   engine.settarget(31042);
+   engine.dlgOpen;
+   delay(500);
+   engine.DlgSel('Quest');
+   delay(500);
+   engine.DlgSel(1);
+   delay(500);
+   engine.DlgSel(1);
+   delay(500);
+  end; 
+
+end;
+if engine.queststatus(241,8) and not engine.queststatus(241,9) then begin //st8
+ while not user.inrange(147452, 27127, -2192,300) do begin
+  Teleport.TpAden;
+ end; 
+ Engine.MoveTo(147720, 26360, -2120);
+ while not engine.queststatus(241,9) do begin
+   engine.settarget(31739);
+   engine.dlgOpen;
+   delay(500);
+   engine.DlgSel('Quest');
+   delay(500);
+   engine.DlgSel(1);
+   delay(500);
+  end;     
+end;
+if engine.queststatus(241,9) and not engine.queststatus(241,10) then begin //st9
+ while not user.inrange(116543, 76297, -2720,300) do begin
+  Teleport.TpHunters;
+ end;
+ Engine.MoveTo(117112, 76264, -2720);
+ Engine.MoveTo(117672, 76216, -2672);
+ Engine.MoveTo(118072, 76136, -2672);
+ Engine.MoveTo(118488, 76248, -2632);
+ Engine.MoveTo(119336, 76504, -2368);
+ Engine.MoveTo(119576, 76568, -2256);
+ Engine.MoveTo(119688, 76680, -2256);
+ Engine.MoveTo(119576, 76840, -2256);
+ Engine.MoveTo(119272, 77112, -2256);
+ Engine.MoveTo(119368, 77304, -2240);
+ Engine.MoveTo(119544, 77400, -2224);
+ Engine.MoveTo(119848, 77304, -2224);
+ while not engine.queststatus(241,10) do begin
+   engine.settarget(30692);
+   engine.dlgOpen;
+   delay(500);
+   engine.DlgSel('Quest');
+   delay(500);
+   engine.DlgSel(1);
+   delay(500);
+  end;    
+end;
+if engine.queststatus(241,10) and not engine.queststatus(241,11) then begin //st10
+ while not user.inrange(147452, 27127, -2192,300) do begin
+  Teleport.TpAden;
+ end; 
+ Engine.MoveTo(147720, 26360, -2120);
+ while not engine.queststatus(241,11) do begin
+   engine.settarget(31739);
+   engine.dlgOpen;
+   delay(500);
+   engine.DlgSel('Quest');
+   delay(500);
+   engine.DlgSel(1);
+   delay(500);
+  end;     
+end;
+if engine.queststatus(241,11) and not engine.queststatus(241,12) then begin //st11
+while not user.inrange(44115, -50215, -784,300) do begin
+  Teleport.TpRune;
+ end;
+ Engine.MoveTo(43928, -49704, -784);
+ Engine.MoveTo(43848, -48968, -784);
+ Engine.MoveTo(43608, -48328, -784);
+ Engine.MoveTo(43368, -48184, -784);
+ Engine.MoveTo(41960, -48184, -784);
+ Engine.MoveTo(40344, -48264, -752);
+ Engine.MoveTo(40344, -48760, -672);
+ Engine.MoveTo(40200, -49592, -384);
+ Engine.MoveTo(40088, -49880, -288);
+ Engine.MoveTo(39672, -50472, -224);
+ Engine.MoveTo(38776, -50968, 16);
+ Engine.MoveTo(37992, -51208, 304);
+ Engine.MoveTo(37112, -51224, 640);
+ Engine.MoveTo(36872, -51224, 728);
+ Engine.MoveTo(36664, -51128, 728);
+ Engine.MoveTo(36680, -50728, 896);
+ Engine.MoveTo(36680, -50504, 912);
+ Engine.MoveTo(37176, -50136, 912);
+ Engine.MoveTo(37912, -49496, 912);
+ Engine.MoveTo(38184, -49016, 912);
+ Engine.MoveTo(38456, -48264, 912);
+ Engine.MoveTo(37656, -48232, 912);
+ Engine.MoveTo(36728, -48216, 912);
+ Engine.MoveTo(36328, -48104, 912);
+ Engine.MoveTo(35928, -47752, 912);
+ Engine.MoveTo(35928, -47064, 1072);
+ Engine.MoveTo(35896, -46952, 1088);
+ Engine.MoveTo(35640, -46920, 1160);
+ Engine.MoveTo(35176, -46920, 1336);
+ Engine.MoveTo(35000, -46920, 1408);
+ Engine.MoveTo(34888, -46968, 1408);
+ Engine.MoveTo(34904, -47528, 1560);
+ Engine.MoveTo(34888, -47976, 1688);
+ Engine.MoveTo(34872, -48168, 1728);
+ Engine.MoveTo(34776, -48200, 1736);
+ Engine.MoveTo(34280, -48216, 1792);
+ Engine.MoveTo(33432, -48168, 1792);
+ Engine.MoveTo(33048, -48184, 1792);
+ while not engine.queststatus(241,12) do begin
+   engine.settarget(31742);
+   engine.movetotarget(-100);
+   engine.dlgOpen;
+   delay(500);
+   engine.DlgSel('Quest');
+   delay(500);
+   engine.DlgSel(1);
+   delay(500);
+   engine.DlgSel(1);
+   delay(2000);
+ end; 
+end;
+if engine.queststatus(241,12) and not engine.queststatus(241,13) then begin //st12
+if not user.inrange(33000, -48200, 1792, 400) then begin
+while not user.inrange(44115, -50215, -784,300) do begin
+  Teleport.TpRune;
+ end;
+ Engine.MoveTo(43928, -49704, -784);
+ Engine.MoveTo(43848, -48968, -784);
+ Engine.MoveTo(43608, -48328, -784);
+ Engine.MoveTo(43368, -48184, -784);
+ Engine.MoveTo(41960, -48184, -784);
+ Engine.MoveTo(40344, -48264, -752);
+ Engine.MoveTo(40344, -48760, -672);
+ Engine.MoveTo(40200, -49592, -384);
+ Engine.MoveTo(40088, -49880, -288);
+ Engine.MoveTo(39672, -50472, -224);
+ Engine.MoveTo(38776, -50968, 16);
+ Engine.MoveTo(37992, -51208, 304);
+ Engine.MoveTo(37112, -51224, 640);
+ Engine.MoveTo(36872, -51224, 728);
+ Engine.MoveTo(36664, -51128, 728);
+ Engine.MoveTo(36680, -50728, 896);
+ Engine.MoveTo(36680, -50504, 912);
+ Engine.MoveTo(37176, -50136, 912);
+ Engine.MoveTo(37912, -49496, 912);
+ Engine.MoveTo(38184, -49016, 912);
+ Engine.MoveTo(38456, -48264, 912);
+ Engine.MoveTo(37656, -48232, 912);
+ Engine.MoveTo(36728, -48216, 912);
+ Engine.MoveTo(36328, -48104, 912);
+ Engine.MoveTo(35928, -47752, 912);
+ Engine.MoveTo(35928, -47064, 1072);
+ Engine.MoveTo(35896, -46952, 1088);
+ Engine.MoveTo(35640, -46920, 1160);
+ Engine.MoveTo(35176, -46920, 1336);
+ Engine.MoveTo(35000, -46920, 1408);
+ Engine.MoveTo(34888, -46968, 1408);
+ Engine.MoveTo(34904, -47528, 1560);
+ Engine.MoveTo(34888, -47976, 1688);
+ Engine.MoveTo(34872, -48168, 1728);
+ Engine.MoveTo(34776, -48200, 1736);
+ Engine.MoveTo(34280, -48216, 1792);
+ Engine.MoveTo(33432, -48168, 1792);
+ Engine.MoveTo(33048, -48184, 1792);
+end; 
+ while not engine.queststatus(241,13) do begin
+   engine.settarget(31744);
+   engine.movetotarget(-100);
+   engine.dlgOpen;
+   delay(500);
+   engine.DlgSel('Quest');
+   delay(500);
+   engine.DlgSel(1);
+   delay(500);
+ end; 
+end;
+if engine.queststatus(241,13) and not engine.queststatus(241,14) then begin //st13
+ while not user.inrange(44115, -50215, -784,300) do begin
+  Teleport.TpRune;
+ end;
+ Engine.MoveTo(43880, -49816, -784);
+ Engine.MoveTo(43624, -49208, -776);
+ Engine.MoveTo(43432, -49176, -776);
+ Engine.MoveTo(43112, -49256, -776);
+ Engine.MoveTo(42936, -48776, -776);
+ Engine.MoveTo(42552, -48328, -784);
+ Engine.MoveTo(41656, -48264, -784);
+ Engine.MoveTo(40568, -48248, -752);
+ Engine.MoveTo(39736, -48232, -752);
+ Engine.MoveTo(38168, -48248, -1136);
+ Engine.MoveTo(37608, -48408, -1136);
+ Engine.MoveTo(37384, -48648, -1112);
+ Engine.MoveTo(37352, -49032, -1112);
+ Engine.MoveTo(37416, -49240, -1112);
+ Engine.MoveTo(37960, -49336, -1112);
+ Engine.MoveTo(38184, -49352, -1112);
+ Engine.MoveTo(38328, -49256, -1112);
+ while not engine.queststatus(241,14) do begin
+   engine.settarget(31336);
+   engine.movetotarget(-100);
+   engine.dlgOpen;
+   delay(500);
+   engine.DlgSel('Quest');
+   delay(500);
+   engine.DlgSel(1);
+   delay(500);
+   engine.DlgSel(1);
+   delay(500);
+ end; 
+end;
+if engine.queststatus(241,14) and not engine.queststatus(241,15) then begin //st14
+ while not user.inrange(172120, 20272, -3312,300) do begin
+  Teleport.TpCementery;
+ end;
+ Engine.MoveTo(172216, 20056, -3312);
+ Engine.MoveTo(172504, 20088, -3312);
+ Engine.MoveTo(172712, 20200, -3312);
+ Engine.MoveTo(173032, 20232, -3224);
+ Engine.MoveTo(173960, 20232, -3232);
+ Engine.MoveTo(174680, 20216, -3232);
+ Engine.MoveTo(175768, 20232, -3232);
+ Engine.MoveTo(176648, 20216, -3232);
+ Engine.MoveTo(177656, 20232, -3232);
+ Engine.MoveTo(178088, 20216, -3232);
+ Engine.MoveTo(178424, 19816, -3232);
+ Engine.MoveTo(178616, 19704, -3200);
+ Engine.MoveTo(178840, 19656, -3152);
+ Engine.MoveTo(179480, 19432, -3152);
+ Engine.MoveTo(179592, 19240, -3152);
+ Engine.MoveTo(179656, 19112, -3152);
+ Engine.MoveTo(179720, 17192, -3152);
+ Engine.MoveTo(181064, 17144, -3152);
+ Engine.LoadZone(script.path+'CrimsonMoss.zmap');
+ engine.facecontrol(0, true);
+ while not engine.queststatus(241,15) do delay(500);
+ AttackDefense;
+end;
+if engine.queststatus(241,15) and not engine.queststatus(241,16) then begin //st15
+ while not user.inrange(44115, -50215, -784,300) do begin
+  Teleport.TpRune;
+ end;
+ Engine.MoveTo(43848, -49832, -784);
+ Engine.MoveTo(43544, -49176, -776);
+ Engine.MoveTo(43112, -49256, -776);
+ Engine.MoveTo(42920, -48568, -784);
+ Engine.MoveTo(42696, -48328, -784);
+ Engine.MoveTo(42008, -48248, -784);
+ Engine.MoveTo(40712, -48232, -752);
+ Engine.MoveTo(39832, -48216, -752);
+ Engine.MoveTo(38136, -48248, -1136);
+ Engine.MoveTo(37528, -48440, -1136);
+ Engine.MoveTo(37352, -48728, -1112);
+ Engine.MoveTo(37384, -49144, -1112);
+ Engine.MoveTo(37432, -49320, -1112);
+ Engine.MoveTo(37896, -49336, -1112);
+ Engine.MoveTo(38280, -49272, -1112);
+ Engine.MoveTo(38344, -49272, -1112);
+ while not engine.queststatus(241,16) do begin
+   engine.settarget(31336);
+   engine.movetotarget(-100);
+   engine.dlgOpen;
+   delay(500);
+   engine.DlgSel('Quest');
+   delay(500);
+   engine.DlgSel(1);
+   delay(500);
+   engine.DlgSel(1);
+   delay(500);
+ end; 
+end; 
+if engine.queststatus(241,16) and not engine.queststatus(241,17) then begin //st16
+while not user.inrange(44115, -50215, -784,300) do begin
+  Teleport.TpRune;
+ end;
+ Engine.MoveTo(43928, -49704, -784);
+ Engine.MoveTo(43848, -48968, -784);
+ Engine.MoveTo(43608, -48328, -784);
+ Engine.MoveTo(43368, -48184, -784);
+ Engine.MoveTo(41960, -48184, -784);
+ Engine.MoveTo(40344, -48264, -752);
+ Engine.MoveTo(40344, -48760, -672);
+ Engine.MoveTo(40200, -49592, -384);
+ Engine.MoveTo(40088, -49880, -288);
+ Engine.MoveTo(39672, -50472, -224);
+ Engine.MoveTo(38776, -50968, 16);
+ Engine.MoveTo(37992, -51208, 304);
+ Engine.MoveTo(37112, -51224, 640);
+ Engine.MoveTo(36872, -51224, 728);
+ Engine.MoveTo(36664, -51128, 728);
+ Engine.MoveTo(36680, -50728, 896);
+ Engine.MoveTo(36680, -50504, 912);
+ Engine.MoveTo(37176, -50136, 912);
+ Engine.MoveTo(37912, -49496, 912);
+ Engine.MoveTo(38184, -49016, 912);
+ Engine.MoveTo(38456, -48264, 912);
+ Engine.MoveTo(37656, -48232, 912);
+ Engine.MoveTo(36728, -48216, 912);
+ Engine.MoveTo(36328, -48104, 912);
+ Engine.MoveTo(35928, -47752, 912);
+ Engine.MoveTo(35928, -47064, 1072);
+ Engine.MoveTo(35896, -46952, 1088);
+ Engine.MoveTo(35640, -46920, 1160);
+ Engine.MoveTo(35176, -46920, 1336);
+ Engine.MoveTo(35000, -46920, 1408);
+ Engine.MoveTo(34888, -46968, 1408);
+ Engine.MoveTo(34904, -47528, 1560);
+ Engine.MoveTo(34888, -47976, 1688);
+ Engine.MoveTo(34872, -48168, 1728);
+ Engine.MoveTo(34776, -48200, 1736);
+ Engine.MoveTo(34280, -48216, 1792);
+ Engine.MoveTo(33432, -48168, 1792);
+ Engine.MoveTo(33048, -48184, 1792);
+ while not engine.queststatus(241,17) do begin
+   engine.settarget(31743);
+   engine.movetotarget(-100);
+   engine.dlgOpen;
+   delay(500);
+   engine.DlgSel('Quest');
+   delay(500);
+   engine.DlgSel(1);
+   delay(500);
+   engine.DlgSel(1);
+   delay(500);
+ end; 
+end; 
+if engine.queststatus(241,17) and not engine.queststatus(241,18) then begin //st17 
+ if not user.inrange(33000, -48200, 1792, 300) then begin
+ while not user.inrange(44115, -50215, -784,300) do begin
+  Teleport.TpRune;
+ end;
+ Engine.MoveTo(43928, -49704, -784);
+ Engine.MoveTo(43848, -48968, -784);
+ Engine.MoveTo(43608, -48328, -784);
+ Engine.MoveTo(43368, -48184, -784);
+ Engine.MoveTo(41960, -48184, -784);
+ Engine.MoveTo(40344, -48264, -752);
+ Engine.MoveTo(40344, -48760, -672);
+ Engine.MoveTo(40200, -49592, -384);
+ Engine.MoveTo(40088, -49880, -288);
+ Engine.MoveTo(39672, -50472, -224);
+ Engine.MoveTo(38776, -50968, 16);
+ Engine.MoveTo(37992, -51208, 304);
+ Engine.MoveTo(37112, -51224, 640);
+ Engine.MoveTo(36872, -51224, 728);
+ Engine.MoveTo(36664, -51128, 728);
+ Engine.MoveTo(36680, -50728, 896);
+ Engine.MoveTo(36680, -50504, 912);
+ Engine.MoveTo(37176, -50136, 912);
+ Engine.MoveTo(37912, -49496, 912);
+ Engine.MoveTo(38184, -49016, 912);
+ Engine.MoveTo(38456, -48264, 912);
+ Engine.MoveTo(37656, -48232, 912);
+ Engine.MoveTo(36728, -48216, 912);
+ Engine.MoveTo(36328, -48104, 912);
+ Engine.MoveTo(35928, -47752, 912);
+ Engine.MoveTo(35928, -47064, 1072);
+ Engine.MoveTo(35896, -46952, 1088);
+ Engine.MoveTo(35640, -46920, 1160);
+ Engine.MoveTo(35176, -46920, 1336);
+ Engine.MoveTo(35000, -46920, 1408);
+ Engine.MoveTo(34888, -46968, 1408);
+ Engine.MoveTo(34904, -47528, 1560);
+ Engine.MoveTo(34888, -47976, 1688);
+ Engine.MoveTo(34872, -48168, 1728);
+ Engine.MoveTo(34776, -48200, 1736);
+ Engine.MoveTo(34280, -48216, 1792);
+ Engine.MoveTo(33432, -48168, 1792);
+ Engine.MoveTo(33048, -48184, 1792);
+end; 
+ while not engine.queststatus(241,18) do begin
+   engine.settarget(31742);
+   engine.movetotarget(-100);
+   engine.dlgOpen;
+   delay(500);
+   engine.DlgSel('Quest');
+   delay(500);
+   engine.DlgSel(1);
+   delay(500);
+   engine.DlgSel(1);
+   delay(500);
+ end; 
+end;
+if engine.queststatus(241,18) and not engine.queststatus(241,19) then begin //st18
+ while not user.inrange(147790, -56496, -2768,300) do begin
+  Teleport.TpGoddard;
+ end;
+ Engine.MoveTo(148360, -56216, -2760);
+ Engine.MoveTo(149016, -56376, -2768);
+ Engine.MoveTo(149240, -56424, -2768);
+ Engine.MoveTo(149912, -56904, -2960);
+ Engine.MoveTo(150040, -57336, -2960);
+ Engine.MoveTo(150104, -57864, -2960);
+ while not engine.queststatus(241,19) do begin
+   engine.settarget(31740);
+   engine.movetotarget(-100);
+   engine.dlgOpen;
+   delay(500);
+   engine.DlgSel('Quest');
+   delay(500);
+   engine.DlgSel(1);
+   delay(500);
+   engine.DlgSel(1);
+   delay(500);
+ end;
+end;
+if engine.queststatus(241,19) and not engine.queststatus(241,20) then begin //st19
+while not Inventory.Quest.ByID(7677, item) do begin
+   engine.settarget(31740);
+   engine.movetotarget(-100);
+   engine.dlgOpen;
+   delay(500);
+   engine.DlgSel('Quest');
+   delay(500);
+   engine.DlgSel(1);
+   delay(500);
+   engine.DlgSel(1);
+   delay(500);
+ end;
+end; 
+/////////////////////////
+end;
+procedure chapter2;  // Precious Soul 2
+var
+item: TL2item;
+i: integer;
+begin
+if Inventory.Quest.ByID(7677, item) then begin
+ while not user.inrange(44115, -50215, -784,300) do begin
+  Teleport.TpRune;
+ end;
+ Engine.MoveTo(43928, -49704, -784);
+ Engine.MoveTo(43848, -48968, -784);
+ Engine.MoveTo(43608, -48328, -784);
+ Engine.MoveTo(43368, -48184, -784);
+ Engine.MoveTo(41960, -48184, -784);
+ Engine.MoveTo(40344, -48264, -752);
+ Engine.MoveTo(40344, -48760, -672);
+ Engine.MoveTo(40200, -49592, -384);
+ Engine.MoveTo(40088, -49880, -288);
+ Engine.MoveTo(39672, -50472, -224);
+ Engine.MoveTo(38776, -50968, 16);
+ Engine.MoveTo(37992, -51208, 304);
+ Engine.MoveTo(37112, -51224, 640);
+ Engine.MoveTo(36872, -51224, 728);
+ Engine.MoveTo(36664, -51128, 728);
+ Engine.MoveTo(36680, -50728, 896);
+ Engine.MoveTo(36680, -50504, 912);
+ Engine.MoveTo(37176, -50136, 912);
+ Engine.MoveTo(37912, -49496, 912);
+ Engine.MoveTo(38184, -49016, 912);
+ Engine.MoveTo(38456, -48264, 912);
+ Engine.MoveTo(37656, -48232, 912);
+ Engine.MoveTo(36728, -48216, 912);
+ Engine.MoveTo(36328, -48104, 912);
+ Engine.MoveTo(35928, -47752, 912);
+ Engine.MoveTo(35928, -47064, 1072);
+ Engine.MoveTo(35896, -46952, 1088);
+ Engine.MoveTo(35640, -46920, 1160);
+ Engine.MoveTo(35176, -46920, 1336);
+ Engine.MoveTo(35000, -46920, 1408);
+ Engine.MoveTo(34888, -46968, 1408);
+ Engine.MoveTo(34904, -47528, 1560);
+ Engine.MoveTo(34888, -47976, 1688);
+ Engine.MoveTo(34872, -48168, 1728);
+ Engine.MoveTo(34776, -48200, 1736);
+ Engine.MoveTo(34280, -48216, 1792);
+ Engine.MoveTo(33432, -48168, 1792);
+ Engine.MoveTo(33048, -48184, 1792);
+ while not engine.queststatus(242,1) do begin
+   engine.settarget(31742);
+   engine.movetotarget(-100);
+   engine.dlgOpen;
+   delay(500);
+   engine.DlgSel('Quest');
+   delay(500);
+   engine.DlgSel(1);
+   delay(500);
+   engine.DlgSel(1);
+   delay(500);
+ end;
+end;
+if engine.queststatus(242,1) and not engine.queststatus(242,2) then begin
+ while not engine.queststatus(242,2) do begin
+  engine.settarget(31743);
+  delay(500);
+  engine.dlgOpen;
+  delay(500);
+  engine.DlgSel('Quest');
+  delay(500);
+  delay(500);
+  engine.DlgSel(1);
+  delay(500);
+  engine.DlgSel(1);
+  delay(500);
+  engine.DlgSel(1);
+  delay(500);
+  engine.DlgSel(1);
+  delay(500);
+  engine.DlgSel(1);
+  delay(500);
+ end;
+end;
+if engine.queststatus(242,2) and not engine.queststatus(242,3) then begin
+ while not engine.queststatus(242,3) do begin
+  engine.settarget(31744);
+  delay(500);
+  engine.dlgOpen;
+  delay(500);
+  engine.DlgSel('Quest');
+  delay(500);
+  delay(500);
+  engine.DlgSel(1);
+  delay(500);
+ end;
+end;
+if engine.queststatus(242,3) and not engine.queststatus(242,4) then begin
+ while not user.inrange(93137, -58245, -2832,300) do begin
+  Teleport.TpScreams;
+ end;
+ Engine.MoveTo(94952, -59432, -2424);
+ Engine.MoveTo(94984, -60152, -2432);
+ Engine.MoveTo(95000, -60584, -2464);
+ while not engine.queststatus(242,4) do begin
+  engine.settarget(31751);
+  delay(500);
+  engine.dlgOpen;
+  delay(500);
+  engine.DlgSel('Quest');
+  delay(500);
+  delay(500);
+  engine.DlgSel(1);
+  delay(500);
+ end;
+end;
+if engine.queststatus(242,4) and not engine.queststatus(242,5) then begin
+ while not engine.queststatus(242,5) do begin
+  engine.settarget(31752);
+  delay(500);
+  engine.dlgOpen;
+  delay(500);
+  engine.DlgSel('Quest');
+  delay(500);
+  delay(500);
+  engine.DlgSel(1);
+  delay(500);
+  if user.target.dead then engine.canceltarget;
+ end;
+end;
+if engine.queststatus(242,5) and not engine.queststatus(242,6) then begin
+ while not engine.queststatus(242,6) do begin
+   engine.settarget(31751);
+   engine.movetotarget(-100);
+   engine.dlgOpen;
+   delay(500);
+   engine.DlgSel('Quest');
+   delay(500);
+   engine.DlgSel(1);
+   delay(500);
+ end;
+end;
+if engine.queststatus(242,6) and not engine.queststatus(242,7) then begin
+ while not user.inrange(85235, 16207, -3656,500) do begin
+  Teleport.TpIvory;
+ end;
+ Engine.MoveTo(85400, 16488, -3624);
+ Engine.MoveTo(85352, 16872, -3592);
+ Engine.MoveTo(85368, 17384, -3496);
+ Engine.MoveTo(85352, 17752, -3496);
+ Engine.MoveTo(85368, 18760, -3680);
+ Engine.MoveTo(85368, 19560, -3768);
+ Engine.MoveTo(85384, 20056, -3768);
+ Engine.MoveTo(85384, 20856, -3696);
+ Engine.MoveTo(85384, 21368, -3608);
+ Engine.MoveTo(85384, 21928, -3512);
+ Engine.MoveTo(85384, 22504, -3496);
+ Engine.MoveTo(85384, 23160, -3496);
+ Engine.MoveTo(85432, 24008, -3624);
+ Engine.MoveTo(85496, 24120, -3616);
+ Engine.MoveTo(86056, 24424, -3576);
+ Engine.MoveTo(86488, 24312, -3584);
+ Engine.MoveTo(87288, 23976, -3536);
+ Engine.MoveTo(87864, 23944, -3488);
+ Engine.MoveTo(88280, 23944, -3504);
+ Engine.MoveTo(89016, 23752, -3584);
+ Engine.MoveTo(89656, 23608, -3584);
+ Engine.MoveTo(90216, 23464, -3584);
+ Engine.MoveTo(90760, 23528, -3592);
+ Engine.MoveTo(91528, 23400, -3544);
+ Engine.MoveTo(92088, 23304, -3408);
+ Engine.MoveTo(93016, 23064, -3240);
+ Engine.MoveTo(93976, 22872, -3112);
+ Engine.MoveTo(94408, 22568, -2992);
+ Engine.MoveTo(94872, 22392, -2896);
+ Engine.MoveTo(95288, 22184, -2864);
+ Engine.MoveTo(95352, 22136, -2864);
+ while not engine.queststatus(242,7) do begin
+   engine.settarget(30759);
+   engine.movetotarget(-100);
+   engine.dlgOpen;
+   delay(500);
+   engine.DlgSel('Quest');
+   delay(500);
+   engine.DlgSel(1);
+   delay(500);
+ end;
+ 
+end;
+if engine.queststatus(242,7) and not engine.queststatus(242,8) then begin
+ while not user.inrange(85235, 16207, -3656,500) do begin
+  Teleport.TpIvory;
+ end;
+ Engine.MoveTo(85400, 16360, -3648);
+ Engine.MoveTo(85336, 17032, -3584);
+ Engine.MoveTo(85336, 17544, -3496);
+ Engine.MoveTo(85336, 19784, -3768);
+ Engine.MoveTo(85352, 20984, -3680);
+ Engine.MoveTo(85352, 21832, -3528);
+ Engine.MoveTo(85352, 22664, -3496);
+ Engine.MoveTo(85336, 23240, -3496);
+ Engine.MoveTo(85336, 24024, -3632);
+ Engine.MoveTo(85064, 24088, -3616);
+ Engine.MoveTo(84856, 24008, -3568);
+ Engine.MoveTo(84376, 24232, -3552);
+ Engine.MoveTo(83640, 24264, -3552);
+ Engine.MoveTo(82968, 24088, -3504);
+ Engine.MoveTo(82056, 23848, -3520);
+ Engine.MoveTo(81336, 23656, -3552);
+ Engine.MoveTo(80312, 23272, -3552);
+ Engine.MoveTo(79768, 22952, -3552);
+ Engine.MoveTo(79032, 22248, -3536);
+ Engine.MoveTo(78552, 21624, -3552);
+ Engine.MoveTo(78168, 20760, -3552);
+ Engine.MoveTo(77848, 19976, -3552);
+ Engine.MoveTo(77640, 19112, -3600);
+ Engine.MoveTo(77480, 17992, -3792);
+ Engine.MoveTo(75656, 18568, -3744);
+ Engine.MoveTo(74232, 18440, -3632);
+ Engine.MoveTo(71592, 18360, -3664);
+ Engine.MoveTo(70104, 18168, -3632);
+ Engine.MoveTo(69880, 18120, -3648); 
+ while not engine.queststatus(242,8) do begin
+   engine.settarget(30738);
+   engine.movetotarget(-100);
+   engine.dlgOpen;
+   delay(500);
+   engine.DlgSel('Quest');
+   delay(500);
+   engine.DlgSel(1);
+   delay(500);
+   engine.DlgSel(1);
+   delay(500);
+ end;
+ 
+end; 
+if engine.queststatus(242,8) and not engine.queststatus(242,9) then begin
+ while not user.inrange(85235, 16207, -3656,500) do begin
+  Teleport.TpIvory;
+ end;
+ Engine.MoveTo(85400, 16488, -3624);
+ Engine.MoveTo(85352, 16872, -3592);
+ Engine.MoveTo(85368, 17384, -3496);
+ Engine.MoveTo(85352, 17752, -3496);
+ Engine.MoveTo(85368, 18760, -3680);
+ Engine.MoveTo(85368, 19560, -3768);
+ Engine.MoveTo(85384, 20056, -3768);
+ Engine.MoveTo(85384, 20856, -3696);
+ Engine.MoveTo(85384, 21368, -3608);
+ Engine.MoveTo(85384, 21928, -3512);
+ Engine.MoveTo(85384, 22504, -3496);
+ Engine.MoveTo(85384, 23160, -3496);
+ Engine.MoveTo(85432, 24008, -3624);
+ Engine.MoveTo(85496, 24120, -3616);
+ Engine.MoveTo(86056, 24424, -3576);
+ Engine.MoveTo(86488, 24312, -3584);
+ Engine.MoveTo(87288, 23976, -3536);
+ Engine.MoveTo(87864, 23944, -3488);
+ Engine.MoveTo(88280, 23944, -3504);
+ Engine.MoveTo(89016, 23752, -3584);
+ Engine.MoveTo(89656, 23608, -3584);
+ Engine.MoveTo(90216, 23464, -3584);
+ Engine.MoveTo(90760, 23528, -3592);
+ Engine.MoveTo(91528, 23400, -3544);
+ Engine.MoveTo(92088, 23304, -3408);
+ Engine.MoveTo(93016, 23064, -3240);
+ Engine.MoveTo(93976, 22872, -3112);
+ Engine.MoveTo(94408, 22568, -2992);
+ Engine.MoveTo(94872, 22392, -2896);
+ Engine.MoveTo(95288, 22184, -2864);
+ Engine.MoveTo(95352, 22136, -2864);
+ while not engine.queststatus(242,9) do begin
+   engine.settarget(30759);
+   engine.movetotarget(-100);
+   engine.dlgOpen;
+   delay(500);
+   engine.DlgSel('Quest');
+   delay(500);
+   engine.DlgSel(1);
+   delay(500);
+ end;
+end; 
+if engine.queststatus(242,9) and not engine.queststatus(242,10) then begin // как будет перс дл€ теста, переписать, пока и так работает.
+ if not user.inrange(86488, -75912, -3464, 3000) then begin
+ while not user.inrange(67989, -71937, -3728,500) do begin
+  Teleport.TpVOS;
+ end;
+ Engine.MoveTo(69000, -72120, -3776);
+ Engine.MoveTo(70152, -72760, -3776);
+ Engine.MoveTo(71912, -73672, -3728);
+ Engine.MoveTo(73608, -74600, -3536);
+ Engine.MoveTo(74728, -74472, -3328);
+ Engine.MoveTo(75704, -74408, -3184);
+ Engine.MoveTo(77064, -74152, -3040);
+ Engine.MoveTo(77752, -73192, -2992);
+ Engine.MoveTo(77976, -72536, -2968);
+ Engine.MoveTo(78728, -70968, -3488);
+ Engine.MoveTo(80024, -71192, -3440);
+ Engine.MoveTo(81192, -71384, -3424);
+ Engine.MoveTo(82440, -71672, -3456);
+ Engine.MoveTo(83400, -72296, -3472);
+ Engine.MoveTo(84152, -72920, -3488);
+ Engine.MoveTo(84936, -73576, -3600);
+ Engine.MoveTo(86408, -73992, -3552);
+ Engine.MoveTo(87416, -74232, -3520);
+ Engine.MoveTo(87848, -74408, -3488);
+ Engine.MoveTo(87160, -75160, -3480);
+ Engine.MoveTo(86424, -75864, -3464);
+ Engine.MoveTo(86040, -76216, -3456);
+ Engine.MoveTo(85880, -76488, -3456);
+ end; 
+ Engine.LoadZone(script.path+'VOS_Unicorn.zmap');
+ engine.facecontrol(0, true);
+ //while not inventory.Quest.ByID(7595, item) or (item.count < 4) do delay(500);
+ delay(30000);
+  engine.facecontrol(0, false);
+ //AttackDefense;
+ Engine.MoveTo(85880, -76536, -3456);
+ while not ValidNPC do delay(500); 
+//cambio el while por un for. No reconoce el inventario de quest
+//while inventory.Quest.ByID(7595, item) and (item.count > 0) do begin
+ for i:= 1 to 4 do begin
+   Target(31748);
+   engine.movetotarget(-100);
+   engine.dlgOpen;
+   delay(500);
+   engine.DlgSel('Quest');
+   delay(500);
+   engine.DlgSel(1);
+   delay(500);
+   if user.target.dead then engine.canceltarget;
+   delay(500);
+ end;
+
+ 
+end; 
+if engine.queststatus(242,10) and not engine.queststatus(242,11) then begin
+ if not user.inrange(86488, -75912, -3464, 3000) then begin
+ while not user.inrange(67989, -71937, -3728,500) do begin
+  Teleport.TpVOS;
+ end;
+ Engine.MoveTo(69000, -72120, -3776);
+ Engine.MoveTo(70152, -72760, -3776);
+ Engine.MoveTo(71912, -73672, -3728);
+ Engine.MoveTo(73608, -74600, -3536);
+ Engine.MoveTo(74728, -74472, -3328);
+ Engine.MoveTo(75704, -74408, -3184);
+ Engine.MoveTo(77064, -74152, -3040);
+ Engine.MoveTo(77752, -73192, -2992);
+ Engine.MoveTo(77976, -72536, -2968);
+ Engine.MoveTo(78728, -70968, -3488);
+ Engine.MoveTo(80024, -71192, -3440);
+ Engine.MoveTo(81192, -71384, -3424);
+ Engine.MoveTo(82440, -71672, -3456);
+ Engine.MoveTo(83400, -72296, -3472);
+ Engine.MoveTo(84152, -72920, -3488);
+ Engine.MoveTo(84936, -73576, -3600);
+ Engine.MoveTo(86408, -73992, -3552);
+ Engine.MoveTo(87416, -74232, -3520);
+ Engine.MoveTo(87848, -74408, -3488);
+ Engine.MoveTo(87160, -75160, -3480);
+ Engine.MoveTo(86424, -75864, -3464);
+ Engine.MoveTo(86040, -76216, -3456);
+ Engine.MoveTo(85880, -76488, -3456);
+ end; 
+  while not engine.queststatus(242,11) do begin
+   engine.settarget(31746);
+   engine.movetotarget(-100);
+   engine.dlgOpen;
+   delay(500);
+   engine.DlgSel('Quest');
+   delay(500);
+   engine.canceltarget;
+   delay(500);
+   engine.settarget(31747);
+   engine.movetotarget(-100);
+   engine.dlgOpen;
+   delay(500);
+   engine.DlgSel('Quest');
+   delay(500);
+   engine.DlgSel(1);
+ end;
+end;
+if engine.queststatus(242,11) then begin
+ while not user.inrange(44083, -50161, -784,500) do begin
+  Teleport.TpRune;
+ end;
+ Engine.MoveTo(43928, -49704, -784);
+ Engine.MoveTo(43848, -48968, -784);
+ Engine.MoveTo(43608, -48328, -784);
+ Engine.MoveTo(43368, -48184, -784);
+ Engine.MoveTo(41960, -48184, -784);
+ Engine.MoveTo(40344, -48264, -752);
+ Engine.MoveTo(40344, -48760, -672);
+ Engine.MoveTo(40200, -49592, -384);
+ Engine.MoveTo(40088, -49880, -288);
+ Engine.MoveTo(39672, -50472, -224);
+ Engine.MoveTo(38776, -50968, 16);
+ Engine.MoveTo(37992, -51208, 304);
+ Engine.MoveTo(37112, -51224, 640);
+ Engine.MoveTo(36872, -51224, 728);
+ Engine.MoveTo(36664, -51128, 728);
+ Engine.MoveTo(36680, -50728, 896);
+ Engine.MoveTo(36680, -50504, 912);
+ Engine.MoveTo(37176, -50136, 912);
+ Engine.MoveTo(37912, -49496, 912);
+ Engine.MoveTo(38184, -49016, 912);
+ Engine.MoveTo(38456, -48264, 912);
+ Engine.MoveTo(37656, -48232, 912);
+ Engine.MoveTo(36728, -48216, 912);
+ Engine.MoveTo(36328, -48104, 912);
+ Engine.MoveTo(35928, -47752, 912);
+ Engine.MoveTo(35928, -47064, 1072);
+ Engine.MoveTo(35896, -46952, 1088);
+ Engine.MoveTo(35640, -46920, 1160);
+ Engine.MoveTo(35176, -46920, 1336);
+ Engine.MoveTo(35000, -46920, 1408);
+ Engine.MoveTo(34888, -46968, 1408);
+ Engine.MoveTo(34904, -47528, 1560);
+ Engine.MoveTo(34888, -47976, 1688);
+ Engine.MoveTo(34872, -48168, 1728);
+ Engine.MoveTo(34776, -48200, 1736);
+ Engine.MoveTo(34280, -48216, 1792);
+ Engine.MoveTo(33432, -48168, 1792);
+ Engine.MoveTo(33048, -48184, 1792);
+ while engine.queststatus(242,11) do begin
+   engine.settarget(31743);
+   engine.movetotarget(-100);
+   engine.dlgOpen;
+   delay(500);
+   engine.DlgSel('Quest');
+   delay(500);
+   engine.DlgSel(1);
+   delay(500);
+   
+ end;
+end; 
+////////////////////////////////////////////////
+end;
+procedure chapter3;  // Precious Soul 3
+var
+item: TL2item;
+begin
+if Inventory.Quest.ByID(7678, item) then begin
+ while not user.inrange(147816, -56514, -2768,500) do begin
+  Teleport.TpGoddard;
+ end;
+ Engine.MoveTo(147928, -56152, -2768);
+ Engine.MoveTo(148488, -56200, -2768);
+ Engine.MoveTo(149048, -56376, -2768);
+ Engine.MoveTo(149272, -56488, -2760);
+ Engine.MoveTo(149576, -56696, -2864);
+ Engine.MoveTo(149896, -56952, -2960);
+ Engine.MoveTo(150008, -57352, -2960);
+ Engine.MoveTo(150104, -57816, -2960);
+ Engine.MoveTo(150104, -57880, -2960);
+ while Inventory.Quest.ByID(7678, item) do begin
+   engine.settarget(31740);
+   engine.movetotarget(-100);
+   engine.dlgOpen;
+   delay(500);
+   engine.DlgSel('Quest');
+   delay(500);
+   engine.DlgSel(1);
+   delay(500);
+   engine.DlgSel(1);
+   delay(500);
+end;
+
+ 
+end;
+if engine.queststatus(246,1) and not engine.queststatus(246,2) then begin
+ while not engine.queststatus(246,2) do begin
+   engine.settarget(31741);
+   engine.movetotarget(-100);
+   engine.dlgOpen;
+   delay(500);
+   engine.DlgSel('Quest');
+   delay(500);
+   engine.DlgSel(1);
+   delay(500);
+end;
+end;
+if engine.queststatus(246,2) and not engine.queststatus(246,3) then begin
+ while not user.inrange(67959, -71929, -3728,500) do begin
+   Teleport.TpVOS;
+ end;
+ //to Piligrim
+ Engine.MoveTo(68408, -72152, -3728);
+ Engine.MoveTo(69032, -72472, -3776);
+ Engine.MoveTo(70136, -72968, -3760);
+ Engine.MoveTo(71528, -73576, -3752);
+ Engine.MoveTo(72952, -74120, -3680);
+ Engine.MoveTo(73736, -74408, -3504);
+ Engine.MoveTo(74600, -74472, -3376);
+ Engine.MoveTo(75512, -74408, -3200);
+ Engine.MoveTo(76696, -74280, -3088);
+ Engine.MoveTo(77464, -74264, -3024);
+ Engine.MoveTo(77960, -74168, -3080);
+ Engine.MoveTo(78328, -74360, -3224);
+ Engine.MoveTo(78920, -75048, -3480);
+ Engine.MoveTo(79384, -75736, -3672);
+ Engine.MoveTo(79736, -76328, -3920);
+ Engine.MoveTo(79896, -76808, -4000);
+ Engine.LoadZone(script.path+'NoblessePiligrim.zmap');
+ engine.facecontrol(0, true);
+ while not inventory.Quest.ByID(7591, item) do begin
+ if user.target = nil then Engine.DMoveTo(80488, -79192, -4032);
+ delay(500); // вставить ID кольца.
+ end;
+ // вставить ID кольца.
+ engine.facecontrol(0,false); ///////////
+ //to Judge
+ Engine.MoveTo(81544, -79496, -4032);
+ Engine.MoveTo(82392, -79880, -3936);
+ Engine.MoveTo(83192, -80040, -3728);
+ Engine.MoveTo(83640, -80120, -3544);
+ Engine.MoveTo(84408, -80456, -3504);
+ Engine.MoveTo(85400, -80792, -3600);
+ Engine.MoveTo(86280, -80760, -3696);
+ Engine.MoveTo(87256, -79864, -3696);
+ Engine.MoveTo(88056, -79032, -3696);
+ Engine.MoveTo(89096, -78296, -3760);
+ Engine.MoveTo(89656, -78088, -3776);
+ Engine.LoadZone(script.path+'NoblesseJudge.zmap');
+ engine.facecontrol(0, true);
+ while not inventory.Quest.ByID(7592, item) do delay(500); // вставить ID кольца.
+ AttackDefense; // придумать как фиксануть проверку на атаку
+ 
+ 
+end;
+if engine.queststatus(246,3) and not engine.queststatus(246,4) then begin
+  while not user.inrange(147816, -56514, -2768,500) do begin
+   Teleport.TpGoddard;
+  end;
+  Engine.MoveTo(148600, -56184, -2768);
+  Engine.MoveTo(149224, -56424, -2768);
+  Engine.MoveTo(149592, -56696, -2864);
+  Engine.MoveTo(149896, -56920, -2960);
+  Engine.MoveTo(149960, -57288, -2960);
+  Engine.MoveTo(150088, -57656, -2960);
+  Engine.MoveTo(150152, -57816, -2960);
+  while not engine.queststatus(246,4) do begin
+   engine.settarget(31741);
+   engine.movetotarget(-100);
+   engine.dlgOpen;
+   delay(500);
+   engine.DlgSel('Quest');
+   delay(500);
+   engine.DlgSel(1);
+   delay(500);
+   engine.DlgSel(2);
+   delay(500);
+end;
+end;  
+if engine.queststatus(246,4) and not engine.queststatus(246,5) then begin
+ while not user.inrange(67959, -71929, -3728,500) do begin
+   Teleport.TpVOS;
+ end;
+ Engine.MoveTo(69224, -72456, -3792);
+ Engine.MoveTo(69976, -72776, -3776);
+ Engine.MoveTo(70952, -73208, -3776);
+ Engine.MoveTo(71832, -73576, -3744);
+ Engine.MoveTo(73384, -74296, -3568);
+ Engine.MoveTo(73976, -74504, -3472);
+ Engine.MoveTo(75096, -74424, -3248);
+ Engine.MoveTo(76104, -74392, -3152);
+ Engine.MoveTo(76936, -74232, -3056);
+ Engine.MoveTo(77688, -74216, -3040);
+ Engine.MoveTo(78200, -74360, -3192);
+ Engine.MoveTo(79272, -75048, -3552);
+ Engine.MoveTo(80232, -77176, -4032);
+ Engine.MoveTo(80408, -77736, -4032);
+ Engine.MoveTo(81336, -78824, -4032);
+ Engine.MoveTo(82264, -79704, -3968);
+ Engine.MoveTo(83160, -79976, -3744);
+ Engine.MoveTo(83688, -80056, -3536);
+ Engine.MoveTo(84040, -80216, -3488);
+ Engine.MoveTo(84584, -81160, -3504);
+ Engine.MoveTo(84920, -82936, -3552);
+ Engine.MoveTo(85320, -84664, -3552);
+ Engine.MoveTo(86184, -85944, -3408);
+ Engine.MoveTo(86648, -86344, -3192);
+ Engine.MoveTo(87288, -86536, -2984);
+ Engine.MoveTo(88168, -86424, -2840);
+ Engine.MoveTo(89016, -86168, -2744);
+ Engine.MoveTo(89208, -86984, -2752);
+ Engine.MoveTo(88728, -87656, -2752);
+ Engine.MoveTo(88488, -88456, -2760);
+ Engine.MoveTo(88344, -88968, -2760);
+ Engine.MoveTo(87704, -89192, -2704);
+ Engine.MoveTo(87064, -89208, -2704);
+ Engine.LoadZone(script.path+'NoblesseStuff.zmap');
+ engine.facecontrol(0,true);
+ while not inventory.Quest.ByID(7593, item) do delay(500);
+ engine.facecontrol(0,false);
+ AttackDefense;
+end;
+if engine.queststatus(246,5) and not engine.queststatus(246,6) then begin
+  while not user.inrange(147816, -56514, -2768,500) do begin
+   Teleport.TpGoddard;
+  end;
+  Engine.MoveTo(148392, -56200, -2760);
+  Engine.MoveTo(148872, -56264, -2768);
+  Engine.MoveTo(149256, -56424, -2760);
+  Engine.MoveTo(149592, -56664, -2864);
+  Engine.MoveTo(149880, -56888, -2960);
+  Engine.MoveTo(149976, -57032, -2960);
+  Engine.MoveTo(150040, -57432, -2960);
+  Engine.MoveTo(150184, -57832, -2960);
+  while not engine.queststatus(246,6) do begin
+   engine.settarget(31741);
+   engine.movetotarget(-100);
+   engine.dlgOpen;
+   delay(500);
+   engine.DlgSel('Quest');
+   delay(500);
+   engine.DlgSel(1);
+   delay(500);
+  end;
+end;
+if engine.queststatus(246,6) and not engine.queststatus(246,7) then begin
+  while not user.inrange(85279, 16107, -3656,500) do begin
+   Teleport.TpIvory;
+  end;
+  while not user.inrange(85424, 16071, -1760,500) do begin  //go 4 floor
+   engine.settarget(30727);
+   engine.movetotarget(-100);
+   engine.dlgOpen;
+   delay(500);
+   engine.DlgSel(3);
+   delay(500);
+   engine.DlgSel(4);
+   delay(500);
+  end;
+  while not Inventory.Quest.ByID(7679, item) do begin
+   engine.settarget(30721);
+   engine.movetotarget(-100);
+   engine.dlgOpen;
+   delay(500);
+   engine.DlgSel('Quest');
+   delay(500);
+   engine.DlgSel(1);
+   delay(500);
+   engine.DlgSel(1);
+   delay(500);
+  end;
+            
+end;  
+//////////////////////////////////
+end;
+procedure chapter4;  // Precious Soul 4
+var
+item: TL2item;
+begin
+if Inventory.Quest.ByID(7679, item) then begin
+ while not user.inrange(147816, -56514, -2768,500) do begin
+  Teleport.TpGoddard;
+ end;
+ Engine.MoveTo(148072, -56312, -2768);
+ Engine.MoveTo(148392, -56232, -2760);
+ Engine.MoveTo(148728, -56280, -2768);
+ Engine.MoveTo(149016, -56424, -2768);
+ Engine.MoveTo(149272, -56488, -2760);
+ Engine.MoveTo(149624, -56696, -2864);
+ Engine.MoveTo(149848, -56936, -2960);
+ Engine.MoveTo(149944, -57112, -2960);
+ Engine.MoveTo(149992, -57432, -2960);
+ Engine.MoveTo(150024, -57720, -2960);
+ Engine.MoveTo(150072, -57848, -2960);
+end;
+//////////// 
+end; 
+
+
+
+
+begin
+  chapter1;
+  chapter2;
+  chapter3;
+  chapter4;
+end.
+
+// A tener en cuenta.
+// Tine que tener pillada la quest de noble en Aden Tailen.
+// compra SOE mas de 20
+// comfigura en el adrenaline las skill para pegar segъn la clase del pj
+// buffa el pj compra mana ss o bss

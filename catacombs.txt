@@ -1,0 +1,44 @@
+uses SysUtils, Classes;
+
+ var 
+     Item: TL2Item;
+     Npc: TL2Npc;
+lastRoom: Integer;
+
+function mobsInZone : Boolean;
+var i: Integer;
+begin
+   for i := 0 to NpcList.Count - 1 do begin
+      if NpcList.Items(i).InZone and NpcList.Items(i).Attackable then begin
+         Result := True;
+         exit;
+      end;
+      delay(100);
+   end;
+   Result := False;
+end;
+begin
+while true do begin
+    if not mobsInZone then begin
+        print('going to other room');
+        Engine.FaceControl(0, False);
+        if (lastRoom = 1) then begin
+              Engine.MoveTo(-43496, 80712, -4720);
+              Engine.MoveTo(-43496, 80200, -4720);
+              
+             engine.clearzone;       
+            Engine.loadzone('zona1'); //name of the zone1
+            lastRoom := 0;
+        end else begin
+                 Engine.MoveTo(-43496, 80200, -4720);
+                    Engine.MoveTo(-43512, 80664, -4720);
+                    engine.clearzone;
+                      Engine.loadzone('zona2'); //name of the zone1
+            lastRoom := 1;
+        end;
+        Delay(1000);
+        Engine.FaceControl(0, True);
+    end;
+Delay(1000);
+end;
+end.

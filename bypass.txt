@@ -1,0 +1,36 @@
+uses SysUtils, Classes, RegExpr;  // plug in module RegExpr
+
+function Bypass(dlg: integer): boolean;
+var
+  RegExp: TRegExpr;
+  SL: TStringList;
+  i: integer;
+  bps: string;
+begin
+  Result:= true;                                            // set the default result
+  RegExp:= TRegExpr.Create;                                 // initialize objects for further work
+  SL:= TStringList.Create;
+  
+  RegExp.Expression:= '(<a *(.+?)</a>)|(<button *(.+?)>)';  // set regexp to search for all possible bypasses
+  if RegExp.Exec(Engine.CbText) then                       // if you found the desired pattern, then
+    repeat SL.Add(RegExp.Match[0]);                         // fill our list with such matches
+    until (not RegExp.ExecNext);                            // until the patterns run out
+
+                       // now go over our list
+                   // if the i-th line contains the required text, then
+      RegExp.Expression:= '"bypass *(.+?)"';             // look for a text template with bypass
+      if RegExp.Exec(SL[ dlg ]) then                          // and if found, then copy from it a piece of interest to us
+        bps:= TrimLeft(Copy(RegExp.Match[0], 9, Length(RegExp.Match[0])-9));
+  
+
+  
+  Print(bps);                                               // print out the final bypass
+  if (Length(bps) > 0) then Engine.BypassToServer(bps);     // if its length is > 0, then send to server
+  
+  RegExp.Free;                                              // do not forget to free up memory
+  SL.Free;
+end;
+
+begin
+  Bypass(4);   // directly the function call, it will find the corresponding bypass and send it
+end.

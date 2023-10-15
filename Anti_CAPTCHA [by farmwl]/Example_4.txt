@@ -1,0 +1,28 @@
+//////////////////////////////////////////////////////
+//              farmwl [asiwin.com]                 //
+//                                                  //
+//          Решает капчу как на картинке \          //
+//        Solve CAPTCHA like on this picture:       //
+//              https://goo.gl/Hq20s7               //
+//////////////////////////////////////////////////////
+
+uses SysUtils;
+
+const PASS = '123';   // указываем пароль, который нужно ввести (enter your pass)
+
+procedure Solve_CAPTCHA_Thread();
+var p1, p2: integer; 
+begin
+  while delay(55) do begin
+    if (Engine.Status = lsOnline) then begin
+      case Engine.WaitAction([laDlg], p1, p2) of
+        laDlg: if (Pos('личный пароль', Engine.DlgText) > 0) then if Engine.BypassToServer('00' + PASS); 
+      end;
+    end;
+  end;
+end; 
+
+begin
+  Script.NewThread(@Solve_CAPTCHA_Thread);
+  // code..
+end.

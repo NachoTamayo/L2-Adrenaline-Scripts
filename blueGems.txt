@@ -1,0 +1,11 @@
+                                       begin
+
+                                       while true do begin
+                                       delay(111);
+                                       if (Engine.dlgText.contains('4 consecutive')) then
+                                         engine.dlgsel(2);
+                                       
+                                        delay(111);
+                                        engine.dlgsel(1);
+                                        end;
+                                       end.

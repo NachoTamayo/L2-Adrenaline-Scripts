@@ -1,0 +1,209 @@
+uses SysUtils, Classes;
+
+var
+  SafePoint: array of integer = [-114120, -151864, -6704];  // "safe" point - where to run for rebuff
+  BuffID: integer = 1323;         // Buff ID to check for the need for rebuff
+  RebuffTime: cardinal = 1200000;   // the time until the end of the buff for rebuff (in ms)
+  AltB: array of string = ['_bbshome', '_bbsgetfav', '_bbsbuffer', '_bbsbufferbypass_cast 287 x x'];  // bypasses for buffs
+  
+
+
+
+
+procedure AltB_Rebuff_Thread();
+var X, Y, Z: integer;
+begin
+  while delay(555) do begin
+    if (BuffTime(BuffID) < RebuffTime) then begin
+      Engine.Msg('[Rebuff]', 'Rebuff', 0);
+      // take the necessary actions, for example, slow down other threads or something else
+      // if you want the bot to first finish off all the agro mobs that hang on it,
+      // Before you run to a safe location, uncomment the code below.
+      {if (HaveAgroMobs) then begin
+        Engine.Msg('[Rebuff]', 'Fighting off mobs', 128);
+        while (HaveAgroMobs) do delay(555);
+        Engine.FaceControl(1, true);
+      end; }
+      X:= User.X;
+      Y:= User.Y;
+      Z:= User.Z;
+      //Engine.FaceControl(1, false);
+      Engine.Msg('[Rebuff]', 'Remember my coordinates: ['+IntToStr(X)+', '+IntToStr(Y)+', '+IntToStr(Z)+']', 0);
+      while (User.DistTo(SafePoint[0], SafePoint[1], SafePoint[2]) > 1222) do           // if necessary, then
+        if Engine.MoveTo(SafePoint[0], SafePoint[1], SafePoint[2]) then delay(555);    // run to a safe point
+      Delay(1000);
+      if (HaveAgroMobs) then begin                                                     // if agro mobs are hanging on us, then
+        Engine.Msg('[Rebuff]', 'Fighting off mobs', 128);
+        Engine.FaceControl(1, true);                                                   // turn on the interface
+        while (HaveAgroMobs) do delay(555);                                            // wait while there are agro mobs
+        Engine.FaceControl(1, false);                                                  // turn off the interface
+        while (User.InCombat) do delay(555);                                           // waiting for the exit from the combat
+      end;
+
+      repeat BuffAltB();                                          // rebuff until
+      until (BuffTime(BuffID) > RebuffTime);                      // the buff time is longer than required
+      Engine.MoveTo(X, Y, Z);                                     // return to the coordinates that filled before the buff
+      Engine.FaceControl(1, true);                                // turn on the interface back and continue the farm
+
+    end;
+  end;
+end;
+
+// https://adrenalinebot.com/ru/api/example/buff-time-check
+function BuffTime(ID: integer): cardinal;
+var i: integer;
+begin
+  result:= 0;
+  for i:= 0 to User.Buffs.Count-1 do begin        // running through the list of our buffs
+    if (User.Buffs.Items(i).id = ID) then begin   // if id matched then
+      result:= User.Buffs.Items(i).EndTime;       // write to the result time before the end of the buff
+      break;
+    end;
+  end;
+end;
+
+procedure BuffAltB();
+var i: integer;
+begin
+  for i:= Low(AltB) to High(AltB) do
+    if Engine.BypassToServer(AltB[i]) then delay(555);
+end;
+
+function HaveAgroMobs(): boolean;                 // the function checks if mobs hang on us
+var i: integer;
+begin
+  result:= false;
+  for i:= 0 to NpcList.Count-1 do begin
+    if (IsAgr(NpcList(i))) then begin
+      result:= true;
+      break;
+    end;
+  end;
+end;
+
+function IsAgr(Mob: TL2Npc): boolean;
+begin
+  result:= (Mob.AtkOID = User.OID) and (not Mob.Dead);
+end;
+
+
+//////////////////
+  procedure Delusion;
+    var
+    obj, obj2: tl2live;
+    NPCA : TL2Npc;
+    item,delupas: TL2Item;
+    MoveRoom: Integer;
+
+    
+    function CheckStatus: Boolean;
+    begin
+    Result:=true;
+        if User.Dead then begin
+            Print('Dead. Pressing to village.');
+            Delay(1000);
+            Engine.FaceControl(0,false);
+            Engine.GoHome;
+            Delay(10000);
+        end;
+    Result:=false;
+    end;
+
+    function Rajemo: boolean;
+    begin
+    engine.facecontrol(0, false);
+    Delay(500);
+    engine.settarget('Delusion Manager');
+    Delay(500);
+    engine.movetotarget;
+    Delay(500);
+    engine.dlgopen;
+    delay(100+random(100));
+    engine.dlgsel(2);
+    delay(2000);
+    end;
+      function Rajemos: boolean;
+    begin
+    engine.facecontrol(0, false);
+    engine.settarget('Delusion Manager');
+    Delay(500);
+    engine.movetotarget;
+    Delay(500);
+    engine.dlgopen;
+    delay(100+random(100));
+    engine.dlgsel(2);
+    delay(2000);
+    end;       
+   Function RaidDead: Boolean;
+begin
+      if (user.target.dead and (user.target.name = ('Aenkinel'))) then begin
+        Delay(3000);
+        Print('Raid Dead Going out!');
+        Rajemo;
+        Delay(500);
+        end;
+end; 
+
+
+    begin
+    Print('Auto Delusion raid v2.1 by iNub');
+    print(exepath);
+    engine.loadzone('DeluWarrior.zmap');
+    engine.loadconfig('DeluRaid.xml');
+    while Engine.Status = lsOnline do begin
+    delay(1500);
+    CheckStatus;
+    Delay(500);
+    //RaidDead;
+    
+        npclist.byid(32659,NPCA);
+         if user.distto(npca) > 200 then begin
+         Engine.SetTarget(NPCA);
+         Delay(500);
+         Engine.MoveTo(NPCA);
+         Delay(500);
+         end;
+         if user.inrange(-114584, -151320, -6704, 2000) and (user.DistTo(NPCA) < 300) then begin
+            Engine.FaceControl(0, false);
+            Print('Entering Eastern Seal');
+            Delay(1200);
+            Engine.SetTarget(NPCA);
+            Delay(500);
+            Engine.DlgOpen;
+            Delay(1200);
+            Engine.DlgSel('Enter the Western Seal.');
+            Delay(1500);
+        end;
+        
+        MoveRoom := 1;
+         if not (user.inZone) and (MoveRoom = 1)  then begin
+         Delay(7000);
+         Print('Moving Room');
+         Rajemos;
+         delay(500);
+//         MoveRoom := 0;
+         end;
+        
+          
+           
+                          
+         if user.inZone then begin
+         Engine.FaceControl(0, true);
+         if Engine.SetTarget('Aenkinel') then
+             delay(500);
+             if User.Target.HP = 100 then begin
+               Delay(3000);
+                   Print('Raid up.');
+                     delay(1200);
+     end;
+        end;
+         end;
+          end;
+
+begin
+  Script.NewThread(@AltB_Rebuff_Thread);
+    Script.NewThread(@Delusion);
+  
+  // there may be additional code...
+  Delay(-1);
+end.

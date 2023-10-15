@@ -1,0 +1,18 @@
+               function InParty(): boolean;
+begin
+  result:= Party.Chars.Count > 0;   // if the number of players in our party is > 0, then returns true 
+end;
+
+begin
+
+ while true do
+  begin
+     delay(100);
+  if InParty() then begin
+    engine.usekey(120);
+    print('1');
+    delay(10000);
+  end;
+
+ end;
+end.

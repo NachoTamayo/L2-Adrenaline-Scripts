@@ -1,0 +1,123 @@
+ uses SysUtils, Classes;
+
+ var 
+     Item: TL2Item;
+     Npc: TL2Npc;
+lastRoom: Integer;
+
+function MobInZone: boolean; 
+var 
+mob: integer; 
+begin 
+  result:= False; 
+  for mob:= 0 to npclist.count-1 do begin
+   if npclist.items (mob) .inzone and not npclist.items (mob).dead then begin 
+     if npclist.items (mob) .z> (user.z-400) then begin 
+      if npclist.items (mob) .z < (user.z + 400) then begin 
+      result:= true; 
+      end; 
+     end; 
+   end; 
+  end; 
+end; 
+
+begin
+while true do begin
+    
+        print('going to other room');
+        Engine.FaceControl(0, False);
+        lastRoom := 3;
+        if (lastRoom = 3) then begin
+           Engine.MoveTo(-18049, 13801, -4896);
+            Engine.MoveTo(-18133, 13512, -4896);
+                Engine.MoveTo(-19069, 13506, -4896);
+                  Engine.MoveTo(-19085, 15048, -4896);
+                  
+                 
+            engine.clearzone;        
+            Engine.loadzone('do1');
+             Engine.FaceControl(0, True);
+              while  MobInZone do begin
+              Delay(1000);
+              end;
+             Engine.FaceControl(0, False);
+            
+        
+            lastRoom := 0;
+        end;
+       if (lastRoom = 0) then begin
+             Engine.MoveTo(-19081, 16460, -4902);
+              Engine.MoveTo(-18714, 16498, -4896);
+                Engine.MoveTo(-18791, 17349, -4896);
+                  Engine.MoveTo(-17765, 17451, -4896);
+                  
+                    
+                        
+           engine.clearzone;        
+            Engine.loadzone('do2');
+             Engine.FaceControl(0, True);
+              while  MobInZone do begin
+              Delay(1000);
+              end;
+              Engine.FaceControl(0, False);
+            lastRoom := 1;
+        end;
+        if (lastRoom = 1) then begin
+               Engine.MoveTo(-16762, 17657, -4896);
+                   Engine.MoveTo(-16491, 17163, -4896);
+                    Engine.MoveTo(-16095, 17114, -4896);
+                      Engine.MoveTo(-16077, 16214, -4896);
+                        
+                        
+                        
+                    
+                     
+           engine.clearzone;        
+            Engine.loadzone('do3');
+             Engine.FaceControl(0, True);
+              while  MobInZone do begin
+              Delay(1000);
+              end;
+               Engine.FaceControl(0, False);
+            lastRoom := 2;
+         end;
+        if (lastRoom = 2) then begin
+             Engine.MoveTo(-14730, 16236, -4896);
+              Engine.MoveTo(-14764, 15240, -4896);
+               Engine.MoveTo(-15143, 14942, -4896);
+               
+                     
+                      
+            engine.clearzone;        
+            Engine.loadzone('do4');
+             Engine.FaceControl(0, True);
+              while  MobInZone do begin
+              Delay(1000);
+              end;
+              Engine.FaceControl(0, False);
+              lastRoom := 3;
+        end;
+        if (lastRoom = 3) then begin
+            Engine.MoveTo(-15571, 14330, -4896);
+              Engine.MoveTo(-15561, 13799, -4896);
+                  Engine.MoveTo(-16856, 13820, -4896);
+                  
+               
+                     
+                      
+            engine.clearzone;        
+            Engine.loadzone('do5');
+             Engine.FaceControl(0, True);
+              while  MobInZone do begin
+              Delay(1000);
+              end;
+              Engine.FaceControl(0, False);
+              lastRoom := 3;
+        end;
+         Delay(1000);
+        
+    
+Delay(1000);
+end;
+end.
+end.
