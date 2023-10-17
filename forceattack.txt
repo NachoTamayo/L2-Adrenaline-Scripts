@@ -1,0 +1,5 @@
+begin
+  while delay(1555) do begin   
+Engine.attack(1000, true);
+end;
+end.

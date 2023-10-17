@@ -1,0 +1,16 @@
+uses tcp;
+
+procedure SendToDiscord(Text: string);
+var HTTP: THTTPSend;
+begin
+	HTTP := THTTPSend.Create;
+	try
+	  HTTP.HTTPMethod('GET', 'http://adrenalinenacho.000webhostapp.com/index.php?msg='+Text);
+	finally
+	  HTTP.free;
+	end;
+end;
+
+begin
+  SendToDiscord('test1'); 
+end. 

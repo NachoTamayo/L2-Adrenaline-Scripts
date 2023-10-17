@@ -1,0 +1,100 @@
+//-------------------------------------------
+//----- Auto delusion raid v 2.1 for l2j
+//----- Written By : iNub
+//----- http://forum.lineage2bot.com
+//----- 
+//----- Change Log:
+//----- 
+//----- Version 2.1 Released - 03/31/15 -Fixed Delays and checks.
+//-------------------------------------------
+//-------------------------------------------
+uses sysutils, Classes;
+
+  
+    procedure Delusion;
+    var
+    obj, obj2: tl2live;
+    NPCA : TL2Npc;
+    item,delupas: TL2Item;
+    MoveRoom: Integer;
+
+    
+    function CheckStatus: Boolean;
+    begin
+    Result:=true;
+        if User.Dead then begin
+            Print('Dead. Pressing to village.');
+            Delay(1000);
+            Engine.FaceControl(0,false);
+            Engine.GoHome;
+            Delay(10000);
+        end;
+    Result:=false;
+    end;
+
+    function Rajemo: boolean;
+    begin
+    engine.facecontrol(0, false);
+    Delay(500);
+    engine.settarget('Delusion Manager');
+    Delay(500);
+    engine.movetotarget;
+    Delay(500);
+    engine.dlgopen;
+    delay(100+random(100));
+    engine.dlgsel(2);
+    delay(2000);
+    end;
+      function Rajemos: boolean;
+    begin
+   
+    engine.settarget('Delusion Manager');
+    Delay(500);
+    engine.movetotarget;
+    Delay(500);
+    engine.dlgopen;
+    delay(100+random(100));
+    engine.dlgsel(1);
+    delay(2000);
+    end;       
+   Function RaidDead: Boolean;
+begin
+      if (user.target.dead and (user.target.name = ('Aenkinel'))) then begin
+        Delay(3000);
+        Print('Raid Dead Going out!');
+        Rajemo;
+        Delay(500);
+        end;
+end; 
+
+
+    begin
+    
+   
+    while Engine.Status = lsOnline do begin
+    delay(1500);
+    CheckStatus;
+    Delay(500);
+    RaidDead;
+    
+        npclist.byid(32658,NPCA);
+         if user.distto(npca) > 10 then begin
+         Engine.SetTarget(NPCA);
+         Delay(500);
+         Engine.MoveTo(NPCA);
+         Delay(500);
+         engine.dlgopen;
+          Delay(500);
+          engine.dlgsel(1);
+         end;
+        
+        
+        
+          
+           
+              end;               
+         end;
+            
+    begin //start of main body
+    Script.NewThread(@Delusion);
+    end. //end of main body

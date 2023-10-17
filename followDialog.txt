@@ -1,0 +1,62 @@
+                             const
+  DialogRepeatEnable: boolean = true; // repeat dialogs, true(yes) / false(no)
+  // list of character nicknames that should be repeated outside the main window
+  DialogRepeatPlayerList: array of string = ['Chants', 'Poleman', 'Catabomber', 'xHeal', 'Ambulance', 'CounterStab', 'FimosisQuistica', 'Rush'];
+  OpcodeStr = '23';  // for Interlude replace with '21'
+  OpcodeHex = $23;   // for Interlude replace with $21
+
+procedure OnCliPacket(ID1, ID2: Cardinal; Data: Pointer; Size: Word);   // output packet handler (C->S)
+begin
+  if (DialogRepeatEnable) and (ID1 = OpcodeHex) then   // if repeat is on, and the package id is the same as the dialog selection then
+    DialogRepeat(MemToHex(Data^, Size));               // call the function that will repeat the dialog selection to the specified windows
+end;
+
+procedure DialogRepeat(PacketData: string);
+var 
+  E: TL2Control;
+  i: integer;
+begin
+  for i:= 0 to Length(DialogRepeatPlayerList)-1 do begin         // go through the list of chars that need to repeat the dialogue
+    E:= nil;
+    E:= GetControl(DialogRepeatPlayerList[i]);                   // get Engine of the desired window
+    if (E <> nil) then E.SendToServer(OpcodeStr + PacketData);   // if Engine is received, then send the dialogue selection packet
+  end;
+end;
+
+procedure DialogOpen(E: TL2Control);    // takes a target and opens a dialog with the desired NPC by another window
+begin
+  E.SetTarget(User.Target.ID);
+  E.DlgOpen;
+end;
+
+procedure DialogOpenThread();           // main thread performing all logic
+var
+  p1, p2: integer;
+  i: integer;
+  E: TL2Control;
+  LastTargetID: cardinal;               // here we store our last target ID
+  LastDlgText: string;                  // text of the last dialogue will be stored here
+begin
+  Engine.SendActID(1);                        // activate interception C-> S packets
+  while (true) do begin                       // run an endless loop
+    Engine.WaitAction([laDlg], p1, p2);       // waiting for the event "opening dialogue"
+    while (User.Target.ID = LastTargetID) and (Engine.DlgText <> LastDlgText) do delay(10);
+    for i:= 0 to Length(DialogRepeatPlayerList)-1 do begin   // for each nick from the list of characters
+      E:= nil;
+      E:= GetControl(DialogRepeatPlayerList[i]);             // get it Engine
+      if (E <> nil) then                                     // and if Engine is received then
+        Script.NewThread(@DialogOpen(E));                    // start a thread for it, which will open a dialogue with the desired NPC
+    end;
+    LastTargetID:= User.Target.ID;                           // rewrite last target ID
+    LastDlgText:= Engine.DlgText;                            // and the text of the last dialogue
+  end;
+end;
+
+begin
+  if (DialogRepeatEnable) then              // if repeat is on then
+    Script.NewThread(@DialogOpenThread);    // start a thread that will do everything necessary
+
+  // code ...    
+    
+  Delay(-1);
+end.

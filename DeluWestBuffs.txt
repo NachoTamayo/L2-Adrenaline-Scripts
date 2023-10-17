@@ -1,0 +1,161 @@
+//-------------------------------------------
+//----- Auto delusion raid v 2.1 for l2j
+//----- Written By : iNub
+//----- http://forum.lineage2bot.com
+//----- 
+//----- Change Log:
+//----- 
+//----- Version 2.1 Released - 03/31/15 -Fixed Delays and checks.
+//-------------------------------------------
+//-------------------------------------------
+uses sysutils, Classes;
+
+  
+    procedure Delusion;
+    var
+    obj, obj2: tl2live;
+    NPCA : TL2Npc;
+    item,delupas: TL2Item;
+    MoveRoom: Integer;
+	  AltB : array of string;
+	   var i: integer;
+
+    
+    function CheckStatus: Boolean;
+    begin
+    Result:=true;
+        if User.Dead then begin
+            Print('Dead. Pressing to village.');
+            Delay(1000);
+            Engine.FaceControl(0,false);
+            Engine.GoHome;
+            Delay(10000);
+        end;
+    Result:=false;
+    end;
+
+    function BuffTime(ID: integer): cardinal;
+var i: integer;
+begin
+  result:= 0;
+  for i:= 0 to User.Buffs.Count-1 do begin        // ????????? ?? ?????? ????? ?????
+    if (User.Buffs.Items(i).id = ID) then begin   // ???? ID ??????, ??
+      result:= User.Buffs.Items(i).EndTime;       // ?????????? ? ????????? ????? ?? ????????? ????
+      break;
+    end;
+  end;
+end;
+
+    function Rajemo: boolean;
+    begin
+    engine.facecontrol(0, false);
+    Delay(500);
+    engine.settarget('Delusion Manager');
+    Delay(500);
+    engine.movetotarget;
+    Delay(500);
+    engine.dlgopen;
+    delay(100+random(100));
+    engine.dlgsel(2);
+    delay(2000);
+    end;
+      function Rajemos: boolean;
+    begin
+    engine.facecontrol(0, false);
+    engine.settarget('Delusion Manager');
+    Delay(500);
+    engine.movetotarget;
+    Delay(500);
+    engine.dlgopen;
+    delay(100+random(100));
+    engine.dlgsel(1);
+    delay(2000);
+    end;       
+   Function RaidDead: Boolean;
+begin
+      if (user.target.dead and (user.target.name = ('Aenkinel'))) then begin
+        Delay(3000);
+        Print('Raid Dead Going out!');
+        Rajemo;
+        Delay(500);
+        end;
+end; 
+
+
+    begin
+    Print('Auto Delusion raid v2.1 by iNub');
+    print(exepath);
+    //engine.loadzone('Eastern Raid Room L2J.zmap');
+    //engine.loadconfig('DeluRaid.xml');
+    while Engine.Status = lsOnline do begin
+    delay(500);
+    CheckStatus;
+    Delay(500);
+    RaidDead;
+    
+        npclist.byid(32660,NPCA);
+         if user.distto(npca) > 200 then begin
+         Engine.SetTarget(NPCA);
+         Delay(500);
+         Engine.MoveTo(NPCA);
+         Delay(500);
+         end;              
+         
+         if user.inrange(-115160, -151832, -6704, 2000) and (user.DistTo(NPCA) < 300) then begin
+		 
+			if (BuffTime(1504) < 2400000) then begin
+			 AltB  := ['_bbshome', '_bbsgetfav', '_bbsbufferbypass_giveBuffSet tank 0 0'];
+			
+				begin
+				  for i:= Low(AltB) to High(AltB) do
+					if Engine.BypassToServer(AltB[i]) then delay(555);
+				end;
+			end;
+		 
+		 
+		 
+            Engine.FaceControl(0, false);
+            Print('Entering Western Seal');
+            Delay(200);
+            Engine.SetTarget(NPCA);
+            Delay(500);
+            Engine.DlgOpen;
+            Delay(200);
+            Engine.DlgSel(1);
+            Delay(500);
+        end;
+        
+        MoveRoom := 1;
+         if not (user.inZone) and (MoveRoom = 1)  then begin
+         Delay(2500);
+         Print('Moving Room');
+         Rajemos;
+         delay(500);
+         MoveRoom := 0;
+         end;
+         if not (user.inZone) and (MoveRoom = 0) then begin
+         Delay(500);
+         Print('No item to move, Moving out');
+         Rajemo;
+         delay(500);
+         MoveRoom := 1;
+         end;
+          
+           
+                          
+         if user.inZone then begin
+         Engine.FaceControl(0, true);
+         if Engine.SetTarget('Aenkinel') then
+             delay(500);
+             if User.Target.HP = 100 then begin
+               Delay(500);
+                   Print('Raid up.');
+                     delay(500);
+     end;
+        end;
+         end;
+          end;
+            
+    begin //start of main body
+    Script.NewThread(@Delusion);
+    end. //end of main body
