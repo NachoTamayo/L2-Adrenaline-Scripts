@@ -1,0 +1,25 @@
+                                          var
+i:integer;
+char2:TL2char;
+radius, radius_max:integer;
+
+begin
+    while delay(150) do begin
+
+    radius := 900;       // Take target range
+    radius_max := 2500;  // Max target search range
+    for i := 0 to CharList.count -1 do
+      begin
+        Char2 := CharList.Items(i);
+        if (user.DistTo(char2) < radius_max)
+        and not (char2.ismember)
+        and not (char2.dead) then
+          begin
+            if user.DistTo(char2) <= radius then
+            Engine.SetTarget(Char2);
+            Engine.attack(1000, true);
+            break
+          end;
+      end;
+    end;
+end.
