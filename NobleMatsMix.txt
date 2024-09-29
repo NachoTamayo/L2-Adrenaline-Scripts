@@ -1,0 +1,135 @@
+var a, b, c, d, e, f, g, h : Integer;
+begin
+
+Engine.SetTarget(31149);
+ delay(500);
+ Engine.dlgOpen();
+ delay(500);
+ Engine.DlgSel('Quest');
+  delay(500);
+ Engine.DlgSel('Insert a mixing stone into the dent.');
+
+//50 MoonDusts
+for a:= 1 to 50 do begin
+  delay(500);
+  Engine.DlgSel('Mix a new reagent.');
+  delay(500);
+  Engine.DlgSel('Moonstone Shard(10)');
+  delay(500);
+  Engine.DlgSel('Next step');
+  delay(500);
+  Engine.DlgSel('Volcanic Ash(1)');
+  delay(500);
+  Engine.DlgSel('Next step');
+  delay(500);
+  Engine.DlgSel('1 degree - Salamander');
+  delay(500);
+  Engine.DlgSel('Mix the ingredients.');
+  end; //A FOR 
+  
+//5 Lunargents
+for b:= 1 to 5 do begin
+  delay(500);
+  Engine.DlgSel('Mix a new reagent.');
+  delay(500);
+  Engine.DlgSel('Moon Dust(10)');
+  delay(500);
+  Engine.DlgSel('Next step');
+  delay(500);
+  Engine.DlgSel('Quicksilver(1)');
+  delay(500);
+  Engine.DlgSel('Next step');
+  delay(500);
+  Engine.DlgSel('1 degree - Salamander');
+  delay(500);
+  Engine.DlgSel('Mix the ingredients.');
+  end; //B FOR
+
+ //10 Magma Dust
+for c:= 1 to 10 do begin
+  delay(500);
+  Engine.DlgSel('Mix a new reagent.');
+  delay(500);
+  Engine.DlgSel('Lava Stone(10)');
+  delay(500);
+  Engine.DlgSel('Next step');
+  delay(500);
+  Engine.DlgSel('Volcanic Ash(1)');
+  delay(500);
+  Engine.DlgSel('Next step');
+  delay(500);
+  Engine.DlgSel('1 degree - Salamander');
+  delay(500);
+  Engine.DlgSel('Mix the ingredients.');
+  end; //C FOR
+  
+  //1 Fire Essence
+  delay(500);
+  Engine.DlgSel('Mix a new reagent.');
+  delay(500);
+  Engine.DlgSel('Magma Dust(10)');
+  delay(500);
+  Engine.DlgSel('Next step');
+  delay(500);
+  Engine.DlgSel('Sulfur(1)');
+  delay(500);
+  Engine.DlgSel('Next step');
+  delay(500);
+  Engine.DlgSel('1 degree - Salamander');
+  delay(500);
+  Engine.DlgSel('Mix the ingredients.');
+  
+   //10 Demonplasm
+	for d:= 1 to 10 do begin
+  delay(500);
+  Engine.DlgSel('Mix a new reagent.');
+  delay(500);
+  Engine.DlgSel('Demon''s Blood(10)');
+  delay(500);
+  Engine.DlgSel('Next step');
+  delay(500);
+  Engine.DlgSel('Blood Root(1)');
+  delay(500);
+  Engine.DlgSel('Next step');
+  delay(500);
+  Engine.DlgSel('1 degree - Salamander');
+  delay(500);
+  Engine.DlgSel('Mix the ingredients.');
+  end; //D FOR
+  
+  //1 Demonic Essence
+  delay(500);
+  Engine.DlgSel('Mix a new reagent.');
+  delay(500);
+  Engine.DlgSel('Demonplasm(10)');
+  delay(500);
+  Engine.DlgSel('Next step');
+  delay(500);
+  Engine.DlgSel('Sulfur(1)');
+  delay(500);
+  Engine.DlgSel('Next step');
+  delay(500);
+  Engine.DlgSel('1 degree - Salamander');
+  delay(500);
+  Engine.DlgSel('Mix the ingredients.');
+  
+  //1 Hellfire Oil
+  delay(500);
+  Engine.DlgSel('Mix a new reagent.');
+  delay(500);
+  Engine.DlgSel('Fire Essence(1)');
+  delay(500);
+  Engine.DlgSel('Next step');
+  delay(500);
+  Engine.DlgSel('Demonic Essence(1)');
+  delay(500);
+  Engine.DlgSel('Next step');
+  delay(500);
+  Engine.DlgSel('1 degree - Salamander');
+  delay(500);
+  Engine.DlgSel('Mix the ingredients.');
+  
+  
+
+
+  end.
