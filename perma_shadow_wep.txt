@@ -1,0 +1,18 @@
+	
+var
+  Item: TL2Item;
+
+begin
+
+ while true do
+  begin
+     delay(1000);
+  if (Inventory.User.ByID(8850, Item)) and not (Item.Equipped)
+
+  then begin
+      	
+    Engine.UseItem(8850);
+    end;
+
+  end;
+end.
