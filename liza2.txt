@@ -1,0 +1,379 @@
+uses SysUtils, Classes, RegExpr;  // plug in module RegExpr
+
+
+function BypassIntTP(dlg: integer): boolean;
+var
+  RegExp: TRegExpr;
+  SL: TStringList;
+  i: integer;
+  bps: string;
+begin
+  Result:= true;                                            // set the default result
+  RegExp:= TRegExpr.Create;                                 // initialize objects for further work
+  SL:= TStringList.Create;
+  
+  RegExp.Expression:= '(<a *(.+?)</a>)|(<button *(.+?)>)';  // set regexp to search for all possible bypasses
+  if RegExp.Exec(Engine.CbText) then                       // if you found the desired pattern, then
+    repeat SL.Add(RegExp.Match[0]);                         // fill our list with such matches
+    until (not RegExp.ExecNext);                            // until the patterns run out
+
+                       // now go over our list
+                   // if the i-th line contains the required text, then
+       RegExp.Expression:= '"bypass -h *(.+?)"';             // look for a text template with bypass
+      if RegExp.Exec(SL[ dlg ]) then                          // and if found, then copy from it a piece of interest to us
+        bps:= TrimLeft(Copy(RegExp.Match[0],12, Length(RegExp.Match[0])-12));
+  
+
+  
+  Print(bps);                                               // print out the final bypass
+  if (Length(bps) > 0) then Engine.BypassToServer(bps);     // if its length is > 0, then send to server
+  
+  RegExp.Free;                                              // do not forget to free up memory
+  SL.Free;
+end;
+
+
+function BypassInt(dlg: integer): boolean;
+var
+  RegExp: TRegExpr;
+  SL: TStringList;
+  i: integer;
+  bps: string;
+begin
+  Result:= true;                                            // set the default result
+  RegExp:= TRegExpr.Create;                                 // initialize objects for further work
+  SL:= TStringList.Create;
+  
+  RegExp.Expression:= '(<a *(.+?)</a>)|(<button *(.+?)>)';  // set regexp to search for all possible bypasses
+  if RegExp.Exec(Engine.CbText) then                       // if you found the desired pattern, then
+    repeat SL.Add(RegExp.Match[0]);                         // fill our list with such matches
+    until (not RegExp.ExecNext);                            // until the patterns run out
+
+                       // now go over our list
+                   // if the i-th line contains the required text, then
+      RegExp.Expression:= '"bypass *(.+?)"';             // look for a text template with bypass
+      if RegExp.Exec(SL[ dlg ]) then                          // and if found, then copy from it a piece of interest to us
+        bps:= TrimLeft(Copy(RegExp.Match[0], 9, Length(RegExp.Match[0])-9));
+  
+
+  
+  Print(bps);                                               // print out the final bypass
+  if (Length(bps) > 0) then Engine.BypassToServer(bps);     // if its length is > 0, then send to server
+  
+  RegExp.Free;                                              // do not forget to free up memory
+  SL.Free;
+end;
+
+function Bypass(dlg: string): boolean;
+var
+  RegExp: TRegExpr;
+  SL: TStringList;
+  i: integer;
+  bps: string;
+begin
+  Result:= true;                                            // set the default result
+  RegExp:= TRegExpr.Create;                                 // initialize objects for further work
+  SL:= TStringList.Create;
+  
+  RegExp.Expression:= '(<a *(.+?)</a>)|(<button *(.+?)>)';  // set regexp to search for all possible bypasses
+  if RegExp.Exec(Engine.CbText) then                       // if you found the desired pattern, then
+    repeat SL.Add(RegExp.Match[0]);                         // fill our list with such matches
+    until (not RegExp.ExecNext);                            // until the patterns run out
+
+  for i:= 0 to SL.Count-1 do begin                          // now go over our list
+    if (Pos(dlg, SL[ i ]) > 0) then begin                   // if the i-th line contains the required text, then
+      RegExp.Expression:= '"bypass -h *(.+?)"';             // look for a text template with bypass
+      if RegExp.Exec(SL[ i ]) then                          // and if found, then copy from it a piece of interest to us
+        bps:= TrimLeft(Copy(RegExp.Match[0], 12, Length(RegExp.Match[0])-12));
+    end;
+  end;
+  
+  Print(bps);                                               // print out the final bypass
+  if (Length(bps) > 0) then Engine.BypassToServer(bps);     // if its length is > 0, then send to server
+  
+  RegExp.Free;                                              // do not forget to free up memory
+  SL.Free;
+end;
+
+procedure startquest;
+begin
+  Engine.MoveTo(86504, 86072, -2864);
+  delay(500);
+  engine.settarget(32741);
+  engine.dlgopen;
+  engine.dlgsel('Quest');
+  delay(500);
+  engine.dlgsel(1);
+  delay(500);
+  engine.dlgsel(1);
+  delay(1000);
+  Engine.MoveTo(86520, 85816, -2872);
+  delay(500);
+  engine.settarget(32744);
+  engine.dlgopen;
+  delay(500);
+  engine.dlgsel('Quest');
+  delay(500);
+  engine.dlgsel(1);
+  delay(500);
+  engine.dlgsel(1);
+  delay(500);
+  engine.dlgsel(1);
+end;
+procedure tospot;
+begin
+  Engine.MoveTo(87144,85912,-3024);
+  Engine.MoveTo(87048,86696,-3008);
+  Engine.MoveTo(85448,88360,-3272);
+  Engine.MoveTo(85512,90008,-3296);
+  Engine.MoveTo(86232,91144,-3144);
+  Engine.MoveTo(86856,92232,-3152);
+  delay(1000);
+  Engine.LoadZone(exepath+'\Settings\'+'lizardmen'+'.zmap');
+  Engine.LoadConfig('Arba');
+  Engine.FaceControl(0,true);
+end;
+procedure toraid1;
+begin
+  Engine.MoveTo(88184, 92488, -3158);
+end;
+procedure toraid2;
+begin
+  Engine.MoveTo(89736, 91048, -3328);
+end;
+procedure toraid3;
+begin
+  Engine.MoveTo(91608, 89608, -3456);
+  end;
+procedure toraid4;
+begin
+ Engine.MoveTo(92920, 87032, -3544);
+ end;
+ procedure toraid5;
+begin
+ Engine.MoveTo(94088, 84024, -3544);
+ end;
+  procedure toraid6;
+begin
+ Engine.MoveTo(94840, 83592, -3416);
+ end;
+procedure outrb;
+begin
+  Engine.FaceControl(0,false);
+  Engine.MoveTo(95720, 85688, -3712);
+  engine.settarget(32740);
+  engine.dlgopen;
+  engine.dlgsel(1);
+  delay(2000);
+  end;
+  procedure tpback;
+  begin
+  delay(6000);
+    Engine.BypassToServer('_bbshome');
+    delay(1200);
+  Engine.BypassToServer('_bbsgatekeeper');
+  delay(1200);
+  Engine.BypassToServer('_bbsgatekeeper_main-19.htm');
+  delay(1200);
+  Engine.BypassToServer('12');
+  delay(1200);
+ 
+  Engine.MoveTo(86744, 85832, -2912);
+  Engine.MoveTo(86568, 85912, -2872);
+  Engine.MoveTo(86504, 86088, -2864);
+  delay(500);
+  engine.settarget(32741);
+  engine.dlgopen;
+  engine.dlgsel('Quest');
+  delay(500);
+  engine.dlgsel(1);
+end;
+procedure floran;
+begin
+  delay(6000);
+Engine.BypassToServer('_bbshome');
+    delay(1200);
+  Engine.BypassToServer('_bbsgetfav');
+  delay(1200);
+  BypassInt(11);
+  delay(1200);
+  BypassInt(26);
+  delay(1200);
+  BypassIntTp(2);
+
+  delay(1200);
+end;
+procedure teleport;
+begin
+  delay(1000);
+Engine.BypassToServer('_bbshome');
+    delay(1200);
+  Engine.BypassToServer('_bbsgetfav');
+  delay(1200);
+  BypassInt(11);
+  delay(1200);
+  BypassInt(26);
+  delay(1200);
+  BypassIntTp(2);
+  delay(1200);
+end;
+procedure takeandtele;
+begin
+  engine.settarget(32740);
+  engine.dlgopen;
+  delay(500);
+  engine.dlgsel('Quest');
+  delay(500);
+  engine.dlgsel(1);
+  delay(1000);
+  engine.dlgopen;
+  engine.dlgsel(2);
+  delay(100);
+  Engine.LoadZone(exepath+'\Settings\'+'raidboss'+'.zmap');
+  Engine.LoadConfig('Arba1');
+  Engine.FaceControl(0,true);
+end;
+procedure endquest;
+begin
+  Engine.MoveTo(86744, 85832, -2912);
+  Engine.MoveTo(86568, 85912, -2872);
+  Engine.MoveTo(86504, 86088, -2864);
+  delay(500);
+  engine.settarget(32741);
+  engine.dlgopen;
+  engine.dlgsel('Quest');
+  delay(500);
+  engine.dlgsel(1);
+end;
+
+//Nacho
+  procedure tobatracos;
+begin
+ Engine.MoveTo(88920, 85624, -3216);
+  Engine.MoveTo(90728, 84760, -3552);
+  Engine.MoveTo(92840, 93752, -3648);
+  Engine.MoveTo(94280, 83320, -3568);
+  Engine.MoveTo(94776, 83592, -3424);
+ end;
+
+function buffCheck: Boolean;
+var buff: TL2Buff;
+begin
+    if not User.Buffs.ByID(1323, buff) or (buff.EndTime < 1800000) then
+    begin
+        Result:=true;
+        Print('Buffs are needed. Buffing...');
+        Engine.MoveTo(86456, 86360, -2864);
+        Delay(6000);
+Engine.BypassToServer('_bbshome');
+    delay(1200);
+  Engine.BypassToServer('_bbsbuffer');
+  delay(1200);
+  Engine.BypassToServer('_bbsbufferbypass_giveBuffSet archer 0 0');
+  delay(1200);
+        Delay(500);
+        Print('Buffed.');
+        Engine.MoveTo(86536, 85800, -2880);
+    end;
+    Result:=false;
+end;
+
+procedure quest;
+var buff:tl2buff;
+item: tl2item;
+begin
+  if(User.Dead) then
+  begin
+	  Print('Dead. Pressing to village.');
+		Engine.FaceControl(0, false);
+		Engine.GoHome;
+  end;
+if User.inrange(86504, 86072, -2864, 5250) or User.inrange(82950,53186,-1494, 5250) then begin
+buffCheck;
+end;
+if User.inrange(86504, 86072, -2864, 800) and (not Engine.QuestStatus(288, 1)) then begin
+startquest;
+end;
+if user.inrange(87344, 85507, -3072, 2000) and (Engine.QuestStatus(423, 1)) then begin
+tospot;
+end;
+//Nacho
+if user.inrange(87316, 85452, -3088, 500) and (Engine.QuestStatus(423, 2)) then begin
+tobatracos;
+end;
+
+if user.inrange(86536, 85800, -2896, 500) and (Engine.QuestStatus(423, 2)) then begin
+tobatracos;
+end;
+
+if user.inrange(87344, 85507, -3072, 2000) and (not Engine.QuestStatus(423, 1)) then begin
+engine.settarget(32744);
+  engine.dlgopen;
+  delay(500);
+  engine.dlgsel('Quest');
+  delay(500);
+  engine.dlgsel(1);
+  delay(500);
+  engine.dlgsel(1);
+  delay(500);
+  engine.dlgsel(1);
+end;
+
+if (Engine.QuestStatus(423, 2)) then begin
+Engine.FaceControl(0,false);
+toraid1;
+end;
+if user.inrange(88184, 92488, -3158, 400) and (Engine.QuestStatus(423, 2)) then begin
+toraid2;
+end;
+if user.inrange(89736, 91048, -3328, 400) and (Engine.QuestStatus(423, 2)) then begin
+toraid3;
+end;
+if user.inrange(91608, 89608, -3456, 400) and (Engine.QuestStatus(423, 2)) then begin
+toraid4;
+end;
+if user.inrange(92920, 87032, -3544, 400) and (Engine.QuestStatus(423, 2)) then begin
+toraid5;
+end;
+if user.inrange(94088, 84024, -3544, 400) and (Engine.QuestStatus(423, 2)) then begin
+toraid6;
+end;
+if user.inrange(45784, 49560, -3040, 5000) then begin          // elf village
+floran;
+end;
+if user.inrange(17088, 170173, -3488, 2000) then begin          // floran
+floran;
+end;
+if user.inrange(11432, 16776, -4640, 5000) then begin          // dark elf village 
+floran;
+end;  
+if user.inrange(94840, 83592, -3416, 400) and (Engine.QuestStatus(423, 2)) then begin    //// kai uzmusa guard
+takeandtele;                 
+end;
+if User.inrange(96680, 85512, -3712, 800) and (Engine.QuestStatus(288, 3)) or (Engine.QuestStatus(288, 2)) then begin   /// kai rb dead
+outrb;                                              
+end;
+if User.inrange(94232,83032,-3552,200) then begin
+tpback;
+end;
+if User.inrange(82950,53186,-1494, 5250) then begin   //// mieste 
+teleport;
+end;
+if User.inrange(87210, 85434, -3072, 800) and (Engine.QuestStatus(288, 3))  then begin   // on tp 
+endquest;
+end;
+if user.inrange(87214, 85547, -3056, 250) and (Engine.QuestStatus(423, 1)) then begin
+tospot;
+end;
+if User.inrange(87214, 85547, -3056, 250) and (not Engine.QuestStatus(288, 1)) then begin
+startquest;
+end;
+end;
+begin
+while (engine.status = lsOnline) do begin
+delay(300);
+quest();
+delay(300);
+delay(300);
+end;
+end.
