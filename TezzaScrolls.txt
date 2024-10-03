@@ -1,0 +1,111 @@
+uses 
+  SysUtils, Classes;
+
+procedure FrintezzaScroll;
+var
+  obj, obj2: TL2Live;
+  NPCA: TL2Npc;
+  item, delupas: TL2Item;
+  completing: String;
+
+  function CheckStatus: Boolean;
+  begin
+    Result := true;
+    if User.Dead then 
+    begin
+      Print('Dead. Pressing to village.');
+      Delay(1000);
+      Engine.FaceControl(0, false);
+      Engine.GoHome;
+      Delay(10000);
+      Result := false;
+    end;
+  end;
+
+begin
+  Print('Auto Delusion raid v2.1 by iNub');
+  Print(ExePath);
+
+  while Engine.Status = lsOnline do 
+  begin
+    if (not Engine.QuestStatus(654, 1) and not Engine.QuestStatus(654, 2)) then 
+    begin
+      Engine.SetTarget(31453);
+      Delay(500);
+      Engine.DlgOpen();
+      Delay(500);
+      Engine.DlgSel('Quest');
+      Delay(500);
+      Engine.DlgSel(3);
+      Delay(500);
+      Engine.DlgSel(1);
+      Delay(500);
+      Engine.DlgSel(1);
+      Delay(500);
+      Engine.BypassToServer('_bbshome');
+      Delay(1200);
+      Engine.BypassToServer('_bbsgatekeeper');
+      Delay(1200);
+      Engine.BypassToServer('1d');
+      Delay(1200);
+      Engine.MoveTo(147960, -55256, -2712);
+      Delay(500);
+      Engine.SetTarget(31275);
+      Delay(500);
+      Engine.DlgOpen();
+      Delay(500);
+      Engine.DlgSel(1);
+      Delay(500);
+      Engine.DlgSel(12);
+      Delay(500);
+      Engine.MoveTo(165960, -47080, -3560);
+      Engine.MoveTo(166728, -47592, -3528);
+      // Engine.LoadZone('WOATezza.zmap');
+      Delay(1000);
+    end;
+
+    if (Engine.QuestStatus(654, 2) and not Engine.QuestStatus(654, 3)) then 
+    begin
+      Delay(1200);
+      Engine.FaceControl(0, true);
+    end;
+
+    if (Engine.QuestStatus(654, 3)) then 
+    begin
+      Engine.FaceControl(0, false);
+      Delay(6000);
+      Engine.BypassToServer('_bbshome');
+      Delay(1200);
+      Engine.BypassToServer('_bbsgatekeeper');
+      Delay(1200);
+      Engine.BypassToServer('1d');
+      Delay(1000);
+      Engine.MoveTo(147960, -55256, -2712);
+      Delay(500);
+      Engine.SetTarget(31275);
+      Delay(500);
+      Engine.DlgOpen();
+      Delay(500);
+      Engine.DlgSel(3);
+      Delay(500);
+      Engine.DlgSel(2);
+      Delay(500);
+      Engine.DlgSel(10);
+      Delay(1000);
+      Engine.MoveTo(178296, -85528, -7200);
+      Engine.SetTarget(31453);
+      Delay(500);
+      Engine.DlgOpen();
+      Delay(500);
+      Engine.DlgSel('Quest');
+      Delay(500);
+      Engine.DlgSel(2);
+      Delay(500);
+      Engine.DlgSel(1);
+    end;
+  end;
+end;
+
+begin // Start of main body
+  Script.NewThread(@FrintezzaScroll);
+end. // End of main body
