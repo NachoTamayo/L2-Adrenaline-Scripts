@@ -1,0 +1,18 @@
+var
+npc: tl2npc;
+begin
+while true do begin
+   if npclist.byid(31027,npc) or//Cabrio chest
+   npclist.byid(31028,npc) or//Kernon chest
+   npclist.byid(31029,npc) or//Golkonda chest
+   npclist.byid(31030,npc) then//Hallate chest
+   begin
+      engine.settarget(npc);
+      engine.movetotarget(-50);
+      engine.dlgopen;
+      engine.dlgsel(1);
+      engine.dlgsel(1);
+   end;
+delay(1000);
+end;
+end.
